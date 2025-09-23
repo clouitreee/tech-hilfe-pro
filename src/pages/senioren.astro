@@ -1,0 +1,85 @@
+---
+import Base from "../layouts/Base.astro";
+---
+
+<Base 
+  title="Hilfe für Seniorinnen & Senioren | Tech Hilfe Pro" 
+  desc="Geduldige IT-Hilfe in Köln: Smartphone, PC, E-Mail, Fotos, Online-Sicherheit und Smart-TV. Hausbesuch möglich."
+>
+  <section class="mx-auto max-w-4xl px-4 py-12 space-y-12">
+    <!-- HERO -->
+    <header class="space-y-4 text-center">
+      <h1 class="text-3xl md:text-4xl font-bold">Senioren-Startpaket: Technik verständlich gemacht</h1>
+      <p class="text-gray-700 max-w-2xl mx-auto">
+        Ruhig, Schritt für Schritt, ohne Fachchinesisch. Wir richten Geräte ein, erklären in Ruhe
+        und lassen eine kleine Anleitung da. Hausbesuch im Kölner Stadtgebiet möglich.
+      </p>
+      <div class="flex justify-center gap-3">
+        <a href="/preise" class="px-5 py-3 rounded-xl bg-indigo-600 text-white hover:bg-indigo-700 transition">Preise ansehen</a>
+        <a href="/kontakt" class="px-5 py-3 rounded-xl bg-gray-900 text-white hover:bg-gray-800 transition">Termin anfragen</a>
+      </div>
+    </header>
+
+    <!-- ENTHALTEN -->
+    <section class="grid md:grid-cols-2 gap-8">
+      <div class="p-6 bg-white rounded-2xl shadow">
+        <h2 class="text-xl font-semibold mb-3">Was ist enthalten?</h2>
+        <ul class="list-disc pl-6 text-gray-700 space-y-2">
+          <li>Smartphone & PC einrichten (Updates, Konten, Apps)</li>
+          <li>E-Mail, WhatsApp, Videoanrufe (z. B. Familie/Arzt)</li>
+          <li>Fotos sichern & ordnen, Drucker verbinden</li>
+          <li>WLAN-Check zu Hause, langsames Internet beheben</li>
+          <li>Schutz vor Betrug: Phishing, Pop-ups, Abo-Fallen</li>
+          <li>Kleine Anleitung auf Papier mit den wichtigsten Schritten</li>
+        </ul>
+      </div>
+
+      <div class="p-6 bg-white rounded-2xl shadow">
+        <h2 class="text-xl font-semibold mb-3">TV & Streaming</h2>
+        <ul class="list-disc pl-6 text-gray-700 space-y-2">
+          <li>Smart-TV einrichten: Sender, Apps (YouTube, Mediatheken, Netflix)</li>
+          <li>Fernbedienungen erklären, Favoriten, Untertitel</li>
+          <li>Receiver/Box anschließen, richtige Quelle wählen</li>
+          <li>Mediatheken & Jugendschutz-PIN</li>
+          <li>WLAN am TV stabilisieren (Repeater/AP richtig platzieren)</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- BEISPIELE -->
+    <section class="p-6 bg-gray-50 rounded-2xl shadow">
+      <h2 class="text-xl font-semibold mb-3">Typische Beispiele</h2>
+      <ul class="list-disc pl-6 text-gray-700 space-y-2">
+        <li>„Internet weg“ → Router prüfen, WLAN optimieren</li>
+        <li>Neues Handy mit alten Fotos/WhatsApp → kompletter Umzug</li>
+        <li>TV zeigt kein Bild → HDMI/Receiver korrekt einstellen</li>
+        <li>„Komische Fenster“ → Malware-Check & Aufräumen</li>
+        <li>Online-Arzt/Behörde → einmalig einrichten & erklären</li>
+      </ul>
+    </section>
+
+    <!-- ABLAUF -->
+    <section class="p-6 bg-white rounded-2xl shadow">
+      <h2 class="text-xl font-semibold mb-3">So läuft es ab</h2>
+      <ol class="list-decimal pl-6 text-gray-700 space-y-2">
+        <li><strong>Kurzes Telefonat</strong> — Anliegen klären, Termin vereinbaren.</li>
+        <li><strong>Hausbesuch oder Remote</strong> — Einrichten, erklären, Notizen dalassen.</li>
+        <li><strong>Nachbetreuung</strong> — Fragen per Telefon/Remote; Vor-Ort bei Bedarf.</li>
+      </ol>
+    </section>
+
+    <!-- FAQ -->
+    <section class="p-6 bg-gray-50 rounded-2xl shadow space-y-3">
+      <h2 class="text-xl font-semibold mb-1">Häufige Fragen</h2>
+      <details class="p-3 border rounded-lg"><summary class="cursor-pointer font-semibold">Arbeiten Sie auch einmalig?</summary><p class="mt-2 text-gray-700">Ja. Einmal-Termine sind möglich; Pakete sind auf Dauer günstiger.</p></details>
+      <details class="p-3 border rounded-lg"><summary class="cursor-pointer font-semibold">Können Sie mit TV-Box/Receiver umgehen?</summary><p class="mt-2 text-gray-700">Ja. Smart-TV, IPTV-Box, Kabel-Receiver und Mediatheken unterstützen wir.</p></details>
+      <details class="p-3 border rounded-lg"><summary class="cursor-pointer font-semibold">Wie schnell reagieren Sie?</summary><p class="mt-2 text-gray-700">Remote meist am selben Werktag, Vor-Ort nach Absprache.</p></details>
+    </section>
+
+    <!-- CTA -->
+    <div class="flex flex-wrap gap-3">
+      <a href="/preise" class="px-5 py-3 rounded-xl bg-indigo-600 text-white hover:bg-indigo-700 transition">Paket wählen</a>
+      <a href="/kontakt" class="px-5 py-3 rounded-xl bg-gray-900 text-white hover:bg-gray-800 transition">Kostenloses Gespräch</a>
+    </div>
+  </section>
+</Base>

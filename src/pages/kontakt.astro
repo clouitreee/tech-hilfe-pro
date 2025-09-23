@@ -1,0 +1,15 @@
+---
+import Base from "../layouts/Base.astro";
+---
+<Base title="Kontakt | Tech Hilfe Pro" desc="Kontakt & 20-Min. Diagnose-Gespräch">
+  <h1 class="text-3xl font-bold mb-6">Kontakt & Diagnose-Gespräch</h1>
+  <form action="https://formspree.io/f/TU_ID" method="POST" class="bg-white p-6 rounded-2xl shadow max-w-xl space-y-4">
+    <input required name="name" placeholder="Name" class="w-full border rounded-xl p-3"/>
+    <input required type="email" name="email" placeholder="E-Mail" class="w-full border rounded-xl p-3"/>
+    <input name="phone" placeholder="Telefon" class="w-full border rounded-xl p-3"/>
+    <select name="type" class="w-full border rounded-xl p-3"><option>Haushalt</option><option>KMU</option></select>
+    <textarea required name="message" placeholder="Ihr Anliegen (max. 140 Zeichen)" maxlength="140" class="w-full border rounded-xl p-3"></textarea>
+    <label class="text-sm text-gray-600"><input type="checkbox" required class="mr-2"/> Ich stimme der Verarbeitung gemäß Datenschutzerklärung zu.</label>
+    <button class="px-5 py-3 rounded-xl bg-indigo-600 text-white">Senden</button>
+  </form>
+</Base>

@@ -1,0 +1,156 @@
+---
+import "../styles/global.css";
+
+// Props por página; si no pasas nada, usa defaults sensatos
+const {
+  title = "Tech Hilfe Pro – IT Service & Beratung in Köln",
+  desc = "IT-Hilfe in Köln: schneller, verständlicher Support für Privathaushalte & KMU. Vor Ort oder remote. Monatlich kündbare Pakete.",
+} = Astro.props;
+
+// Canonical absoluto basado en la URL actual
+const canonical = `https://techhilfepro.de${Astro.url.pathname}`;
+
+// JSON-LD LocalBusiness (ajusta NAP real cuando lo tengas)
+const localBusiness = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Tech Hilfe Pro – IT Service & Beratung",
+  "url": "https://techhilfepro.de",
+  "image": "https://techhilfepro.de/og-image.jpg",
+  "telephone": "+49 155 65029989",
+  "email": "info@techhilfepro.de",
+  "priceRange": "€€",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Musterstraße 12",
+    "addressLocality": "Köln",
+    "postalCode": "50670",
+    "addressCountry": "DE"
+  },
+  "areaServed": "Köln und Umgebung",
+  "sameAs": ["https://wa.me/4915565029989"],
+  "openingHoursSpecification": [{
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+    "opens": "09:00",
+    "closes": "18:00"
+  }]
+};
+
+// JSON-LD WebSite con SearchAction (para futuros filtros/búsqueda)
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Tech Hilfe Pro",
+  "url": "https://techhilfepro.de",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://techhilfepro.de/suche?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+};
+---
+
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>{title}</title>
+    <meta name="description" content={desc} />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href={canonical} />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={desc} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content="https://techhilfepro.de/og-image.jpg" />
+    <meta property="og:locale" content="de_DE" />
+
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={desc} />
+    <meta name="twitter:image" content="https://techhilfepro.de/og-image.jpg" />
+
+    <!-- Favicons / PWA (opcionalmente añade manifest.json más tarde) -->
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <!-- Preconnects útiles -->
+    <link rel="preconnect" href="https://techhilfepro.de" />
+    <link rel="dns-prefetch" href="https://wa.me" />
+
+    <!-- Micro-mejoras de seguridad (nota: la CSP real va por cabeceras en el servidor/CDN) -->
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+
+    <!-- JSON-LD (LocalBusiness + WebSite) -->
+    <script type="application/ld+json">{JSON.stringify(localBusiness)}</script>
+    <script type="application/ld+json">{JSON.stringify(websiteSchema)}</script>
+
+    <!-- Analítica sin cookies (cuando tengas tu script e ID, descomenta)
+    <script async src="https://YOUR-UMAMI-SCRIPT.js" data-website-id="YOUR-WEBSITE-ID"></script>
+    -->
+  </head>
+
+  <body class="min-h-screen bg-gray-50 text-gray-900 antialiased">
+    <!-- Skip link de accesibilidad -->
+    <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 bg-indigo-600 text-white px-3 py-2 rounded">
+      Zum Inhalt springen
+    </a>
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-white/90 backdrop-blur border-b">
+      <div class="mx-auto max-w-screen-xl px-6 py-4 flex items-center justify-between">
+        <a href="/" class="font-semibold text-xl text-indigo-700 tracking-tight" aria-label="Tech Hilfe Pro Startseite">
+          Tech Hilfe Pro
+        </a>
+        <nav class="flex items-center gap-3" aria-label="Hauptnavigation">
+          <a
+            href="/preise"
+            class="px-4 py-2 rounded-xl bg-indigo-600 text-white hover:bg-indigo-700 transition"
+            data-umami-event="Header: Diagnose"
+          >
+            20-Min. Diagnose
+          </a>
+          <a
+            href="https://wa.me/4915565029989?text=Hallo%2C%20ich%20brauche%20IT-Hilfe%20in%20Koeln."
+            class="px-4 py-2 rounded-xl bg-emerald-500 text-white hover:bg-emerald-600 transition"
+            rel="noopener noreferrer"
+            data-umami-event="Header: WhatsApp"
+          >
+            WhatsApp
+          </a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Main -->
+    <main id="main" class="mx-auto max-w-screen-xl px-6 py-16">
+      <slot />
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t">
+      <div class="mx-auto max-w-screen-xl px-6 py-10 text-sm text-gray-600 flex flex-wrap items-center gap-6">
+        <span>© {new Date().getFullYear()} Tech Hilfe Pro</span>
+        <a href="/impressum" class="hover:underline">Impressum</a>
+        <a href="/datenschutz" class="hover:underline">Datenschutz</a>
+      </div>
+    </footer>
+
+    <!-- Sticky CTA (solo móvil) -->
+    <div class="fixed inset-x-0 bottom-0 z-40 md:hidden border-t bg-white/95 backdrop-blur px-4 py-3 flex gap-3 justify-center">
+      <a href="/preise" class="flex-1 text-center px-4 py-3 rounded-xl bg-indigo-600 text-white font-medium" data-umami-event="Sticky: Diagnose">20-Min. Diagnose</a>
+      <a href="https://wa.me/4915565029989?text=Hallo%2C%20ich%20brauche%20IT-Hilfe%20in%20Koeln."
+         class="flex-1 text-center px-4 py-3 rounded-xl bg-emerald-500 text-white font-medium" rel="noopener noreferrer" data-umami-event="Sticky: WhatsApp">WhatsApp</a>
+    </div>
+
+    <!-- Interactividad básica (reveal on scroll) -->
+    <script type="module" src="/scripts/reveal.js"></script>
+  </body>
+</html>
