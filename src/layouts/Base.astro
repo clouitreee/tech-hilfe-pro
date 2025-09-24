@@ -1,14 +1,22 @@
 ---
 import "../styles/global.css";
 
-// Defaults por página (sobrescribibles con Astro.props)
+// Props sobrescribibles por página
 const {
   title = "Tech Hilfe Pro – IT Service & Beratung in Köln",
   desc  = "IT-Hilfe in Köln: schneller, verständlicher Support für Privathaushalte & KMU. Vor Ort oder remote. Monatlich kündbare Pakete."
 } = Astro.props;
 
-// Canonical absoluto según la URL actual
+// Canonical según la URL actual
 const canonical = `https://techhilfepro.de${Astro.url.pathname}`;
+
+// Paleta (azul/morado como tus favicons). Ajusta si cambias el branding.
+const BRAND = {
+  primary: "#6C5CE7",   // azul-violeta
+  primaryDark: "#5A4FD1",
+  gradientFrom: "#6C5CE7",
+  gradientTo: "#9B5DE5"
+};
 
 // JSON-LD LocalBusiness (ajusta dirección real cuando la tengas)
 const localBusiness = {
@@ -16,13 +24,13 @@ const localBusiness = {
   "@type": "LocalBusiness",
   "name": "Tech Hilfe Pro – IT Service & Beratung",
   "url": "https://techhilfepro.de",
-  "image": "https://techhilfepro.de/og-image.jpg",
+  "image": "https://techhilfepro.de/images/og-image.jpg",
   "telephone": "+49 155 65029989",
   "email": "info@techhilfepro.de",
   "priceRange": "€€",
   "address": {
     "@type": "PostalAddress",
-    "streetAddress": "Schirmerstr. 7", // TODO: reemplazar por dirección real
+    "streetAddress": "Schirmerstr. 7",
     "addressLocality": "Köln",
     "postalCode": "50823",
     "addressCountry": "DE"
@@ -35,7 +43,7 @@ const localBusiness = {
   ]
 };
 
-// JSON-LD WebSite con SearchAction (por si añades buscador)
+// JSON-LD WebSite
 const websiteSchema = {
   "@context": "https://schema.org",
   "@type": "WebSite",
@@ -61,7 +69,7 @@ const websiteSchema = {
     <link rel="alternate" href="https://techhilfepro.de" hreflang="de-DE" />
 
     <!-- Theming -->
-    <meta name="theme-color" content="#4f46e5" />
+    <meta name="theme-color" content={BRAND.primary} />
     <meta name="color-scheme" content="light dark" />
 
     <!-- Open Graph -->
@@ -69,7 +77,7 @@ const websiteSchema = {
     <meta property="og:description" content={desc} />
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonical} />
-    <meta property="og:image" content="https://techhilfepro.de/og-image.jpg" />
+    <meta property="og:image" content="https://techhilfepro.de/images/og-image.jpg" />
     <meta property="og:locale" content="de_DE" />
     <meta property="og:site_name" content="Tech Hilfe Pro" />
 
@@ -77,20 +85,20 @@ const websiteSchema = {
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={desc} />
-    <meta name="twitter:image" content="https://techhilfepro.de/og-image.jpg" />
+    <meta name="twitter:image" content="https://techhilfepro.de/images/og-image.jpg" />
 
-    <!-- Favicons / PWA mínimos -->
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="icon" href="/favicon.ico" sizes="any" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <!-- Favicons / PWA -->
+    <link rel="icon" href="/images/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/images/favicon.ico" sizes="any" />
+    <link rel="apple-touch-icon" href="/images/apple-touch-icon.png" />
+    <link rel="manifest" href="/images/site.webmanifest" />
 
     <!-- Preloads útiles -->
-    <link rel="preload" as="image" href="/og-image.jpg" imagesrcset="/og-image.jpg" />
+    <link rel="preload" as="image" href="/images/og-image.jpg" />
 
     <!-- Seguridad & networking -->
     <meta name="referrer" content="strict-origin-when-cross-origin" />
     <meta http-equiv="X-Content-Type-Options" content="nosniff" />
-    <link rel="preconnect" href="https://techhilfepro.de" />
     <link rel="dns-prefetch" href="https://wa.me" />
 
     <!-- JSON-LD -->
@@ -99,110 +107,148 @@ const websiteSchema = {
 
     <!-- Umami Analytics (privacy-friendly) -->
     <script defer src="https://cloud.umami.is/script.js" data-website-id="56b58f40-736a-4f96-9520-3e789b49467f"></script>
+
+    <!-- Variables de marca globales -->
+    <style>
+      :root {
+        --brand: {BRAND.primary};
+        --brand-dark: {BRAND.primaryDark};
+        --brand-grad-from: {BRAND.gradientFrom};
+        --brand-grad-to: {BRAND.gradientTo};
+      }
+      @media (prefers-reduced-motion: no-preference) {
+        .fade-in { animation: fade-in .3s ease-out both; }
+        .slide-up { animation: slide-up .4s ease-out both; }
+        header.is-stuck { backdrop-filter: saturate(140%) blur(10px); }
+        @keyframes fade-in { from {opacity: 0} to {opacity: 1} }
+        @keyframes slide-up { from {transform: translateY(8px); opacity: 0} to {transform: translateY(0); opacity: 1} }
+      }
+    </style>
   </head>
 
-  <body class="min-h-screen bg-gray-50 text-gray-900 antialiased selection:bg-indigo-200/60">
+  <body class="min-h-screen bg-zinc-50 text-zinc-900 antialiased selection:bg-indigo-200/60">
     <!-- Skip link -->
-    <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 bg-indigo-600 text-white px-3 py-2 rounded">
+    <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 bg-[color:var(--brand)] text-white px-3 py-2 rounded">
       Zum Inhalt springen
     </a>
 
-    <!-- Header: sin bordes, CTAs ocultas en móvil, fade sutil -->
-    <header class="sticky top-0 z-50 bg-white/90 backdrop-blur">
+    <!-- Header nuevo: logo + texto, navegación limpia, sticky con blur -->
+    <header id="site-header" class="sticky top-0 z-50 bg-white/85 backdrop-blur transition-colors">
       <div class="mx-auto max-w-screen-xl px-4 md:px-6 py-3 md:py-4 flex items-center justify-between">
-        <a href="/" class="font-semibold text-lg md:text-xl text-indigo-700 tracking-tight" aria-label="Tech Hilfe Pro Startseite">
-          Tech Hilfe Pro
+        <a href="/" class="group flex items-center gap-3" aria-label="Tech Hilfe Pro Startseite">
+          <img src="/images/logo.png" alt="Tech Hilfe Pro – IT-Service Köln" width="36" height="36" class="h-9 w-9 rounded-xl shadow-sm ring-1 ring-black/5 transition-transform group-hover:scale-[1.02]" />
+          <span class="text-lg md:text-xl font-semibold tracking-tight text-zinc-900">
+            Tech <span style={`color:${BRAND.primary}`}>Hilfe</span> Pro
+          </span>
         </a>
-        <nav class="hidden md:flex items-center gap-3" aria-label="Hauptnavigation">
+
+        <nav class="hidden md:flex items-center gap-6" aria-label="Hauptnavigation">
+          <a href="/benefits" class="text-zinc-700 hover:text-zinc-900 transition-colors">Vorteile</a>
+          <a href="/pakete" class="text-zinc-700 hover:text-zinc-900 transition-colors">Pakete & Preise</a>
+          <a href="/kontakt" class="text-zinc-700 hover:text-zinc-900 transition-colors">Kontakt</a>
           <a
-            href="/preise"
-            class="px-4 py-2 rounded-xl bg-indigo-600 text-white hover:bg-indigo-700 transition text-sm"
-            data-umami-event="Header: Diagnose"
+            href="/kontakt"
+            class="ml-2 inline-flex items-center justify-center rounded-xl px-4 py-2 text-sm font-medium text-white shadow-sm"
+            style={`background: linear-gradient(90deg, ${BRAND.gradientFrom}, ${BRAND.gradientTo});`}
+            data-umami-event="Header: Erstberatung"
           >
-            20-Min. Diagnose
-          </a>
-          <a
-            href="https://wa.me/4915565029989?text=Hallo%2C%20ich%20brauche%20IT-Hilfe%20in%20Koeln."
-            class="px-4 py-2 rounded-xl bg-emerald-500 text-white hover:bg-emerald-600 transition text-sm"
-            rel="noopener"
-            data-umami-event="Header: WhatsApp"
-          >
-            WhatsApp
+            Kostenlose Erstberatung
           </a>
         </nav>
+
+        <!-- Menú móvil simple (placeholder; añade interactividad si usas client script) -->
+        <a href="/kontakt" class="md:hidden inline-flex items-center justify-center rounded-lg px-3 py-2 text-sm font-medium text-white"
+          style={`background: linear-gradient(90deg, ${BRAND.gradientFrom}, ${BRAND.gradientTo});`}
+          data-umami-event="Header: Erstberatung (Mobile)">
+          Beratung
+        </a>
       </div>
-      <div class="h-px md:h-1 bg-gradient-to-r from-indigo-100 via-transparent to-indigo-100"></div>
+      <div class="h-px bg-gradient-to-r from-[color:var(--brand-grad-from)]/15 via-transparent to-[color:var(--brand-grad-to)]/15"></div>
     </header>
 
-    <!-- Main: padding extra abajo para no chocar con el sticky móvil -->
-    <main id="main" class="mx-auto max-w-screen-xl px-4 md:px-6 py-12 md:py-16 pb-28 md:pb-16">
+    <!-- Main -->
+    <main id="main" class="mx-auto max-w-screen-xl px-4 md:px-6 py-12 md:py-16 pb-28 md:pb-16 fade-in">
       <slot />
     </main>
 
-    <!-- Footer con desvanecido, cero líneas -->
-    <footer class="bg-gradient-to-t from-gray-50 via-white to-white">
+    <!-- Footer -->
+    <footer class="bg-gradient-to-t from-zinc-50 via-white to-white">
       <div class="mx-auto max-w-screen-xl px-6 py-12 grid grid-cols-1 md:grid-cols-3 gap-8 text-sm">
         <!-- Marca -->
-        <div>
+        <div class="slide-up">
           <div class="flex items-center gap-2">
-            <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-indigo-600 text-white font-bold">IT</span>
+            <img src="/images/logo.png" alt="" class="h-8 w-8 rounded-lg ring-1 ring-black/5" />
             <span class="font-semibold">Tech Hilfe Pro</span>
           </div>
-          <p class="mt-3 text-gray-600">
+          <p class="mt-3 text-zinc-600">
             Dein IT-Partner in Köln. Wir machen Technik verständlich, schnell und sicher.
           </p>
         </div>
 
         <!-- Navegación -->
-        <nav aria-label="Footer Navigation">
-          <h3 class="font-semibold text-gray-900 mb-3">Navigation</h3>
+        <nav aria-label="Footer Navigation" class="slide-up">
+          <h3 class="font-semibold text-zinc-900 mb-3">Navigation</h3>
           <ul class="space-y-2">
-            <li><a class="hover:text-indigo-700" href="/">Startseite</a></li>
-            <li><a class="hover:text-indigo-700" href="/privatkunden">Für Privatkunden</a></li>
-            <li><a class="hover:text-indigo-700" href="/geschaeftskunden">Für Geschäftskunden</a></li>
-            <li><a class="hover:text-indigo-700" href="/kontakt">Kontakt</a></li>
-            <li><a class="hover:text-indigo-700" href="/impressum">Impressum</a></li>
-            <li><a class="hover:text-indigo-700" href="/datenschutz">Datenschutz</a></li>
+            <li><a class="hover:text-[color:var(--brand)]" href="/">Startseite</a></li>
+            <li><a class="hover:text-[color:var(--brand)]" href="/benefits">Vorteile</a></li>
+            <li><a class="hover:text-[color:var(--brand)]" href="/pakete">Pakete & Preise</a></li>
+            <li><a class="hover:text-[color:var(--brand)]" href="/kontakt">Kontakt</a></li>
+            <li><a class="hover:text-[color:var(--brand)]" href="/impressum">Impressum</a></li>
+            <li><a class="hover:text-[color:var(--brand)]" href="/datenschutz">Datenschutz</a></li>
           </ul>
         </nav>
 
         <!-- Contacto -->
-        <div>
-          <h3 class="font-semibold text-gray-900 mb-3">Kontakt</h3>
-          <ul class="space-y-2 text-gray-700">
-            <li>📞 <a class="hover:text-indigo-700" href="tel:+4915565029989">01556 5029989</a></li>
-            <li>✉️ <a class="hover:text-indigo-700" href="mailto:info@techhilfepro.de">info@techhilfepro.de</a></li>
+        <div class="slide-up">
+          <h3 class="font-semibold text-zinc-900 mb-3">Kontakt</h3>
+          <ul class="space-y-2 text-zinc-700">
+            <li>📞 <a class="hover:text-[color:var(--brand)]" href="tel:+4915565029989">01556 5029989</a></li>
+            <li>✉️ <a class="hover:text-[color:var(--brand)]" href="mailto:info@techhilfepro.de">info@techhilfepro.de</a></li>
             <li>📍 Köln, Nordrhein-Westfalen</li>
           </ul>
-          <p class="mt-3 text-gray-700">
+          <p class="mt-3 text-zinc-700">
             Geschäftszeiten:<br />
-            Mo–Fr: 9:00–18:00 Uhr<br />
-            Sa: 9:00–14:00 Uhr
+            Mo–Fr: 9:00–18:00 Uhr · Sa: 9:00–14:00 Uhr
           </p>
         </div>
       </div>
 
-      <div class="h-1 bg-gradient-to-r from-indigo-100 via-transparent to-indigo-100"></div>
+      <div class="h-1 bg-gradient-to-r from-[color:var(--brand-grad-from)]/15 via-transparent to-[color:var(--brand-grad-to)]/15"></div>
 
-      <div class="mx-auto max-w-screen-xl px-6 py-6 text-xs text-gray-500 text-center">
+      <div class="mx-auto max-w-screen-xl px-6 py-6 text-xs text-zinc-500 text-center">
         © {new Date().getFullYear()} Tech Hilfe Pro. Alle Rechte vorbehalten.
       </div>
     </footer>
 
-    <!-- Sticky CTA (solo móvil) con safe-area y sombra suave -->
+    <!-- Sticky CTA (solo móvil) -->
     <div
       class="fixed inset-x-0 bottom-0 z-40 md:hidden bg-white/95 backdrop-blur px-4 py-3 flex gap-3 justify-center shadow-[0_-6px_12px_rgba(0,0,0,.06)]"
       style="padding-bottom: calc(env(safe-area-inset-bottom) + 12px);"
     >
-      <a href="/preise"
-         class="flex-1 text-center px-4 py-3 rounded-xl bg-indigo-600 text-white font-medium text-sm"
-         data-umami-event="Sticky: Diagnose">20-Min. Diagnose</a>
-      <a href="https://wa.me/4915565029989?text=Hallo%2C%20ich%20brauche%20IT-Hilfe%20in%20Koeln."
+      <a href="/kontakt"
+         class="flex-1 text-center px-4 py-3 rounded-xl text-white font-medium text-sm"
+         style={`background: linear-gradient(90deg, ${BRAND.gradientFrom}, ${BRAND.gradientTo});`}
+         data-umami-event="Sticky: Erstberatung">Kostenlose Erstberatung</a>
+      <a href="https://wa.me/4915565029989?text=Hallo,%20ich%20interessiere%20mich%20für%20ein%20Service-Paket.%20Kurz%20zu%20meiner%20IT:%20[Anzahl%20Geräte,%20Windows/Mac,%20Cloud/Office,%20Drucker].%20Wann%20passt%20ein%20kurzer%20Termin?"
          class="flex-1 text-center px-4 py-3 rounded-xl bg-emerald-500 text-white font-medium text-sm"
          rel="noopener" data-umami-event="Sticky: WhatsApp">WhatsApp</a>
     </div>
 
-    <!-- Interactividad básica (reveal on scroll) -->
-    <script type="module" src="/scripts/reveal.js"></script>
-  </body>
-</html>
+    <script>
+/** Pequeño helper para el estado sticky del header, sin que TS llore. */
+(() => {
+  /** @type {HTMLElement|null} */
+  const header = document.getElementById('site-header');
+  if (!header) return; // si no hay header, no hay fiesta
+
+  const onScroll = () => {
+    const y = window.scrollY || window.pageYOffset;
+    const shouldStick = y > 8;
+    header.classList.toggle('is-stuck', shouldStick);
+  };
+
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+})();
+</script>
+
