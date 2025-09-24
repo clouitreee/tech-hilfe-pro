@@ -10,9 +10,9 @@ const {
 // Canonical según la URL actual
 const canonical = `https://techhilfepro.de${Astro.url.pathname}`;
 
-// Paleta (azul/morado como tus favicons). Ajusta si cambias el branding.
+// Paleta (ajusta si cambias el branding)
 const BRAND = {
-  primary: "#6C5CE7",   // azul-violeta
+  primary: "#6C5CE7",
   primaryDark: "#5A4FD1",
   gradientFrom: "#6C5CE7",
   gradientTo: "#9B5DE5"
@@ -100,6 +100,7 @@ const websiteSchema = {
     <meta name="referrer" content="strict-origin-when-cross-origin" />
     <meta http-equiv="X-Content-Type-Options" content="nosniff" />
     <link rel="dns-prefetch" href="https://wa.me" />
+    <link rel="preconnect" href="https://cloud.umami.is" crossorigin />
 
     <!-- JSON-LD -->
     <script type="application/ld+json">{JSON.stringify(localBusiness)}</script>
@@ -132,7 +133,7 @@ const websiteSchema = {
       Zum Inhalt springen
     </a>
 
-    <!-- Header nuevo: logo + texto, navegación limpia, sticky con blur -->
+    <!-- Header -->
     <header id="site-header" class="sticky top-0 z-50 bg-white/85 backdrop-blur transition-colors">
       <div class="mx-auto max-w-screen-xl px-4 md:px-6 py-3 md:py-4 flex items-center justify-between">
         <a href="/" class="group flex items-center gap-3" aria-label="Tech Hilfe Pro Startseite">
@@ -156,12 +157,15 @@ const websiteSchema = {
           </a>
         </nav>
 
-        <!-- Menú móvil simple (placeholder; añade interactividad si usas client script) -->
-        <a href="/kontakt" class="md:hidden inline-flex items-center justify-center rounded-lg px-3 py-2 text-sm font-medium text-white"
-          style={`background: linear-gradient(90deg, ${BRAND.gradientFrom}, ${BRAND.gradientTo});`}
-          data-umami-event="Header: Erstberatung (Mobile)">
-          Beratung
-        </a>
+        <!-- CTA móvil visible solo en md- -->
+        <div class="md:hidden">
+          <a href="/kontakt"
+            class="inline-flex items-center justify-center rounded-lg px-3 py-2 text-sm font-medium text-white"
+            style={`background: linear-gradient(90deg, ${BRAND.gradientFrom}, ${BRAND.gradientTo});`}
+            data-umami-event="Header: Erstberatung (Mobile)">
+            Beratung
+          </a>
+        </div>
       </div>
       <div class="h-px bg-gradient-to-r from-[color:var(--brand-grad-from)]/15 via-transparent to-[color:var(--brand-grad-to)]/15"></div>
     </header>
@@ -202,9 +206,9 @@ const websiteSchema = {
         <div class="slide-up">
           <h3 class="font-semibold text-zinc-900 mb-3">Kontakt</h3>
           <ul class="space-y-2 text-zinc-700">
-            <li>📞 <a class="hover:text-[color:var(--brand)]" href="tel:+4915565029989">01556 5029989</a></li>
-            <li>✉️ <a class="hover:text-[color:var(--brand)]" href="mailto:info@techhilfepro.de">info@techhilfepro.de</a></li>
-            <li>📍 Köln, Nordrhein-Westfalen</li>
+            <li><a class="hover:text-[color:var(--brand)]" href="tel:+4915565029989">01556 5029989</a></li>
+            <li><a class="hover:text-[color:var(--brand)]" href="mailto:info@techhilfepro.de">info@techhilfepro.de</a></li>
+            <li>Köln, Nordrhein-Westfalen</li>
           </ul>
           <p class="mt-3 text-zinc-700">
             Geschäftszeiten:<br />
@@ -231,24 +235,21 @@ const websiteSchema = {
          data-umami-event="Sticky: Erstberatung">Kostenlose Erstberatung</a>
       <a href="https://wa.me/4915565029989?text=Hallo,%20ich%20interessiere%20mich%20für%20ein%20Service-Paket.%20Kurz%20zu%20meiner%20IT:%20[Anzahl%20Geräte,%20Windows/Mac,%20Cloud/Office,%20Drucker].%20Wann%20passt%20ein%20kurzer%20Termin?"
          class="flex-1 text-center px-4 py-3 rounded-xl bg-emerald-500 text-white font-medium text-sm"
-         rel="noopener" data-umami-event="Sticky: WhatsApp">WhatsApp</a>
+         rel="nofollow noopener" data-umami-event="Sticky: WhatsApp">WhatsApp</a>
     </div>
 
     <script>
-/** Pequeño helper para el estado sticky del header, sin que TS llore. */
+/** Header sticky */
 (() => {
-  /** @type {HTMLElement|null} */
   const header = document.getElementById('site-header');
-  if (!header) return; // si no hay header, no hay fiesta
-
+  if (!header) return;
   const onScroll = () => {
     const y = window.scrollY || window.pageYOffset;
-    const shouldStick = y > 8;
-    header.classList.toggle('is-stuck', shouldStick);
+    header.classList.toggle('is-stuck', y > 8);
   };
-
   onScroll();
   window.addEventListener('scroll', onScroll, { passive: true });
 })();
-</script>
-
+    </script>
+  </body>
+</html>

@@ -1,17 +1,17 @@
 // public/scripts/typed.js
 (() => {
-  const WORDS = [
-    "WLAN",
-    "Windows-PC",
-    "Mac",
-    "Arbeitsplatz",
-    "Drucker & Scanner",
-    "Überwachungskamera",
-    "Tablet",
-    "Smartphone",
-    "Smart-Home-Geräte",
-    "Heimnetz"
-  ];
+const WORDS = [
+  "WLAN",
+  "Windows-PC",
+  "Mac",
+  "Arbeitsplatz",
+  "Drucker & Scanner",
+  "Überwachungskamera",
+  "Tablet",
+  "Smartphone",
+  "Smart-Home-Geräte",
+  "Heimnetz"
+];
 
   const SPEED_TYPE = 55;    // ms por carácter (escritura)
   const SPEED_DELETE = 35;  // ms por carácter (borrado)
