@@ -6,7 +6,7 @@ const WA_TEXT = encodeURIComponent(
 const WHATSAPP_LINK = `https://wa.me/4915565029989?text=${WA_TEXT}`;
 ---
 <section class="hero">
-  <div class="container">
+  <div class="shell">
     <h1 class="hero-title" data-split>
       Vor-Ort & Online-Support<br />
       für deinen Windows-PC
@@ -39,46 +39,84 @@ const WHATSAPP_LINK = `https://wa.me/4915565029989?text=${WA_TEXT}`;
     </div>
   </div>
 
-  <!-- Animación de letras con Motion One -->
+  <!-- Animación con fallback si @motionone/dom no carga -->
   <script type="module">
-    import { animate, stagger } from "@motionone/dom";
-
-    const reduce =
-      window.matchMedia &&
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-    if (!reduce) {
-      const el = document.querySelector("[data-split]");
-      if (el) {
-        const original = el.textContent;
-        el.textContent = "";
-        const frag = document.createDocumentFragment();
-        for (const ch of original) {
-          const span = document.createElement("span");
-          span.className = "char";
-          span.textContent = ch;
-          frag.appendChild(span);
+    // Utilidad: split conservando <br> y espacios, envolviendo solo caracteres visibles
+    const splitIntoChars = (root) => {
+      const nodes = Array.from(root.childNodes);
+      root.textContent = "";
+      const frag = document.createDocumentFragment();
+      for (const node of nodes) {
+        if (node.nodeType === Node.TEXT_NODE) {
+          const txt = node.textContent ?? "";
+          for (const ch of txt) {
+            if (ch === " ") { frag.appendChild(document.createTextNode(" ")); continue; }
+            const span = document.createElement("span");
+            span.className = "char";
+            span.textContent = ch;
+            frag.appendChild(span);
+          }
+        } else {
+          frag.appendChild(node); // <br> etc.
         }
-        el.appendChild(frag);
+      }
+      root.appendChild(frag);
+      return root.querySelectorAll(".char");
+    };
 
-        const chars = el.querySelectorAll(".char");
-        animate(
-          chars,
-          { transform: ["translateY(14px)", "translateY(0px)"], opacity: [0, 1] },
-          { duration: 0.6, delay: stagger(0.012), easing: "cubic-bezier(.22,.61,.36,1)" }
+    const el = document.querySelector("[data-split]");
+    if (!el) { console.warn("[hero] data-split no encontrado"); }
+
+    const runWAAPI = (chars, opts = {}) => {
+      const base = { duration: 700, easing: "cubic-bezier(.22,.61,.36,1)", fill: "both" };
+      const delayStep = 12; // ms
+      chars.forEach((c, i) => {
+        c.animate(
+          [{ transform: "translateY(16px)", opacity: 0 }, { transform: "translateY(0)", opacity: 1 }],
+          { ...base, delay: i * delayStep, ...opts }
         );
+      });
+    };
 
-        // micro-interacción al mover el cursor por el título
-        el.addEventListener("pointermove", (e) => {
-          const rect = el.getBoundingClientRect();
-          const midX = rect.left + rect.width / 2;
-          const dir = e.clientX < midX ? -1 : 1;
-          animate(
-            chars,
-            { transform: [`translateY(${dir * -2}px)`, "translateY(0px)"] },
-            { duration: 0.35 }
-          );
+    const setupHover = (chars) => {
+      let raf = 0;
+      el.addEventListener("pointermove", (e) => {
+        cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(() => {
+          const r = el.getBoundingClientRect();
+          const rel = (e.clientX - r.left) / r.width - 0.5; // -0.5..0.5
+          const offset = rel * 4; // px
+          chars.forEach((c) => c.animate([{ transform: `translateY(${offset * -1}px)` }, { transform: "translateY(0)" }], { duration: 250, fill: "both" }));
         });
+      });
+      el.addEventListener("pointerleave", () => {
+        chars.forEach((c) => c.animate([{ transform: "translateY(0)" }], { duration: 200, fill: "both" }));
+      });
+    };
+
+    if (el) {
+      const chars = splitIntoChars(el);
+
+      // Intento con Motion One; si falla, uso Web Animations API (WAAPI)
+      try {
+        const { animate, stagger } = await import("/node_modules/@motionone/dom/dist/index.mjs");
+        animate(chars, { transform: ["translateY(16px)", "translateY(0px)"], opacity: [0, 1] }, { duration: 0.7, delay: stagger(0.012), easing: "cubic-bezier(.22,.61,.36,1)" });
+        // micro wave
+        let raf = 0;
+        el.addEventListener("pointermove", (e) => {
+          cancelAnimationFrame(raf);
+          raf = requestAnimationFrame(() => {
+            const r = el.getBoundingClientRect();
+            const rel = (e.clientX - r.left) / r.width - 0.5;
+            const offset = rel * 4;
+            animate(chars, { transform: `translateY(${offset * -1}px)` }, { duration: 0.25 });
+          });
+        });
+        el.addEventListener("pointerleave", () => animate(chars, { transform: "translateY(0px)" }, { duration: 0.25 }));
+      } catch (err) {
+        console.warn("[hero] Motion One no cargó, uso WAAPI", err);
+        runWAAPI(chars);
+        setupHover(chars);
       }
     }
   </script>
