@@ -97,10 +97,8 @@ const websiteSchema = {
 
     <!-- Preloads útiles -->
     <link rel="preload" as="image" href="/og-image.jpg" imagesrcset="/og-image.jpg" />
-    <!-- Si usas una fuente local, precárgala aquí -->
-    <!-- <link rel="preload" as="font" type="font/woff2" href="/fonts/inter-var.woff2" crossorigin> -->
 
-    <!-- Seguridad & networking (la CSP real va por cabecera en el CDN) -->
+    <!-- Seguridad & networking -->
     <meta name="referrer" content="strict-origin-when-cross-origin" />
     <meta http-equiv="X-Content-Type-Options" content="nosniff" />
     <link rel="preconnect" href="https://techhilfepro.de" />
@@ -120,8 +118,8 @@ const websiteSchema = {
       Zum Inhalt springen
     </a>
 
-    <!-- Header -->
-    <header class="sticky top-0 z-50 bg-white/90 backdrop-blur border-b">
+    <!-- Header sin borde + fade decorativo -->
+    <header class="sticky top-0 z-50 bg-white/90 backdrop-blur">
       <div class="mx-auto max-w-screen-xl px-6 py-4 flex items-center justify-between">
         <a href="/" class="font-semibold text-xl text-indigo-700 tracking-tight" aria-label="Tech Hilfe Pro Startseite">
           Tech Hilfe Pro
@@ -144,6 +142,7 @@ const websiteSchema = {
           </a>
         </nav>
       </div>
+      <div class="h-1 bg-gradient-to-r from-indigo-100 via-transparent to-indigo-100"></div>
     </header>
 
     <!-- Main -->
@@ -151,8 +150,8 @@ const websiteSchema = {
       <slot />
     </main>
 
-    <!-- Footer 3 columnas -->
-    <footer class="border-t bg-white">
+    <!-- Footer con desvanecido, sin líneas -->
+    <footer class="bg-gradient-to-t from-gray-50 via-white to-white">
       <div class="mx-auto max-w-screen-xl px-6 py-12 grid grid-cols-1 md:grid-cols-3 gap-8 text-sm">
         <!-- Marca -->
         <div>
@@ -194,15 +193,16 @@ const websiteSchema = {
         </div>
       </div>
 
-      <div class="border-t">
-        <div class="mx-auto max-w-screen-xl px-6 py-6 text-xs text-gray-500 text-center">
-          © {new Date().getFullYear()} Tech Hilfe Pro. Alle Rechte vorbehalten.
-        </div>
+      <!-- Separador suave antes del copyright -->
+      <div class="h-1 bg-gradient-to-r from-indigo-100 via-transparent to-indigo-100"></div>
+
+      <div class="mx-auto max-w-screen-xl px-6 py-6 text-xs text-gray-500 text-center">
+        © {new Date().getFullYear()} Tech Hilfe Pro. Alle Rechte vorbehalten.
       </div>
     </footer>
 
-    <!-- Sticky CTA (solo móvil) -->
-    <div class="fixed inset-x-0 bottom-0 z-40 md:hidden border-t bg-white/95 backdrop-blur px-4 py-3 flex gap-3 justify-center">
+    <!-- Sticky CTA (solo móvil) sin borde -->
+    <div class="fixed inset-x-0 bottom-0 z-40 md:hidden bg-white/95 backdrop-blur px-4 py-3 flex gap-3 justify-center">
       <a href="/preise" class="flex-1 text-center px-4 py-3 rounded-xl bg-indigo-600 text-white font-medium" data-umami-event="Sticky: Diagnose">20-Min. Diagnose</a>
       <a href="https://wa.me/4915565029989?text=Hallo%2C%20ich%20brauche%20IT-Hilfe%20in%20Koeln."
          class="flex-1 text-center px-4 py-3 rounded-xl bg-emerald-500 text-white font-medium"
