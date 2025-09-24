@@ -2,8 +2,11 @@
 import Base from "../layouts/Base.astro";
 ---
 
-<Base title="IT-Service Köln | Tech Hilfe Pro" desc="Technischer Support & digitale Beratung für Privathaushalte und KMU in Köln. Vor Ort oder remote.">
-  <!-- HERO ancho con fondo suave -->
+<Base 
+  title="IT-Service Köln | Tech Hilfe Pro" 
+  desc="Technischer Support & digitale Beratung für Privathaushalte und KMU in Köln. Vor Ort oder remote.">
+  
+  <!-- HERO -->
   <section class="relative overflow-hidden">
     <div class="absolute inset-0 -z-10 bg-gradient-to-b from-indigo-50/70 to-transparent"></div>
 
@@ -13,13 +16,18 @@ import Base from "../layouts/Base.astro";
           IT-Hilfe in Köln. Schnell, freundlich, verständlich.
         </h1>
         <p class="text-xl text-gray-700 max-w-2xl">
-          Support für Privathaushalte und kleine Unternehmen. Vor Ort oder remote. Klare Preise, monatlich kündbar.
+          Support für Privathaushalte und kleine Unternehmen. Vor Ort oder remote. 
+          Klare Preise, monatlich kündbar.
         </p>
+
+        <!-- Chips -->
         <div class="flex flex-wrap gap-3">
           <span class="px-3 py-1 rounded-full bg-white shadow text-sm text-gray-600">In Köln vor Ort</span>
           <span class="px-3 py-1 rounded-full bg-white shadow text-sm text-gray-600">Monatlich kündbar</span>
           <span class="px-3 py-1 rounded-full bg-white shadow text-sm text-gray-600">DSGVO-konform</span>
         </div>
+
+        <!-- CTAs -->
         <div class="flex flex-wrap gap-4 pt-2">
           <a href="/preise" class="px-6 py-3 rounded-xl bg-indigo-600 text-white text-base hover:bg-indigo-700 transition">
             Kostenloses 20-Min. Diagnose-Gespräch
@@ -31,7 +39,7 @@ import Base from "../layouts/Base.astro";
         </div>
       </div>
 
-      <!-- Imagen/placeholder opcional (puedes meter una ilustración luego) -->
+      <!-- Placeholder Bild -->
       <div class="h-64 lg:h-80 rounded-3xl bg-white shadow-inner border border-indigo-100"></div>
     </div>
   </section>
@@ -39,13 +47,15 @@ import Base from "../layouts/Base.astro";
   <!-- SEPARADOR -->
   <div class="my-12 h-px bg-gray-200"></div>
 
-  <!-- CARDS DEBAJO, GRANDES Y CLICABLES -->
-  <section aria-labelledby="services" class="space-y-6">
-    <h2 id="services" class="text-2xl font-semibold">Beliebte Pakete</h2>
+  <!-- BELIEBTE PAKETE -->
+  <section aria-labelledby="pakete" class="space-y-6">
+    <h2 id="pakete" class="text-2xl font-semibold">Beliebte Pakete</h2>
     <div class="grid gap-6 md:grid-cols-3">
       <a href="/haushalt" class="group p-6 rounded-3xl bg-white shadow hover:shadow-xl hover:-translate-y-1 transition">
         <h3 class="text-lg font-semibold">Home-Office Sicher</h3>
-        <p class="mt-2 text-gray-600 text-base">WLAN-Check, Passwort-Manager, Backup-Einrichtung, Updates & Patchen.</p>
+        <p class="mt-2 text-gray-600 text-base">
+          WLAN-Check, Passwort-Manager, Backup-Einrichtung, Updates & Patchen.
+        </p>
         <span class="mt-4 inline-flex items-center gap-1 text-indigo-700 text-sm opacity-90 group-hover:opacity-100">
           Mehr erfahren →
         </span>
@@ -53,7 +63,9 @@ import Base from "../layouts/Base.astro";
 
       <a href="/senioren" class="group p-6 rounded-3xl bg-white shadow hover:shadow-xl hover:-translate-y-1 transition">
         <h3 class="text-lg font-semibold">Senioren Startpaket</h3>
-        <p class="mt-2 text-gray-600 text-base">Einrichten & Geduld. E-Mail, Videoanruf, Fotos. Hausbesuch möglich.</p>
+        <p class="mt-2 text-gray-600 text-base">
+          Einrichten & Geduld. E-Mail, Videoanruf, Fotos. Hausbesuch möglich.
+        </p>
         <span class="mt-4 inline-flex items-center gap-1 text-indigo-700 text-sm opacity-90 group-hover:opacity-100">
           Mehr erfahren →
         </span>
@@ -61,7 +73,9 @@ import Base from "../layouts/Base.astro";
 
       <a href="/kmu" class="group p-6 rounded-3xl bg-white shadow hover:shadow-xl hover:-translate-y-1 transition">
         <h3 class="text-lg font-semibold">MSP-Lite für KMU</h3>
-        <p class="mt-2 text-gray-600 text-base">Monitoring, AV verwaltet, Backup (Pro), Remote-Support. Vor-Ort nach Bedarf.</p>
+        <p class="mt-2 text-gray-600 text-base">
+          Monitoring, AV verwaltet, Backup (Pro), Remote-Support. Vor-Ort nach Bedarf.
+        </p>
         <span class="mt-4 inline-flex items-center gap-1 text-indigo-700 text-sm opacity-90 group-hover:opacity-100">
           Mehr erfahren →
         </span>
@@ -69,19 +83,39 @@ import Base from "../layouts/Base.astro";
     </div>
   </section>
 
-  <!-- BENEFICIOS EN FILA ANCHA -->
-  <section class="mt-16 grid gap-6 md:grid-cols-3">
-    <div class="p-6 rounded-3xl bg-white shadow">
-      <h3 class="font-semibold mb-1">Proaktiv statt reaktiv</h3>
-      <p class="text-gray-600">Weniger Ausfälle, planbare Kosten und klare Zuständigkeit.</p>
-    </div>
-    <div class="p-6 rounded-3xl bg-white shadow">
-      <h3 class="font-semibold mb-1">Transparente Preise</h3>
-      <p class="text-gray-600">Pakete ab 19 € für Haushalte, 49 €/Nutzer/Monat für KMU.</p>
-    </div>
-    <div class="p-6 rounded-3xl bg-white shadow">
-      <h3 class="font-semibold mb-1">Schnelle Hilfe</h3>
-      <p class="text-gray-600">Remote am selben Werktag, Vor-Ort in Köln nach Absprache.</p>
+  <!-- VORTEILE / PAKETE UNTEN -->
+  <section class="mt-16 space-y-6">
+    <h2 class="text-2xl font-semibold">Unsere Vorteile</h2>
+    <div class="grid gap-6 md:grid-cols-3">
+      <a href="/pakete/proaktiv" class="group p-6 rounded-3xl bg-white shadow hover:shadow-xl hover:-translate-y-1 transition">
+        <h3 class="font-semibold mb-1">Proaktiv statt reaktiv</h3>
+        <p class="text-gray-600">
+          Weniger Ausfälle, planbare Kosten und klare Zuständigkeit.
+        </p>
+        <span class="mt-4 inline-flex items-center gap-1 text-indigo-700 text-sm opacity-90 group-hover:opacity-100">
+          Mehr erfahren →
+        </span>
+      </a>
+
+      <a href="/pakete/preise" class="group p-6 rounded-3xl bg-white shadow hover:shadow-xl hover:-translate-y-1 transition">
+        <h3 class="font-semibold mb-1">Transparente Preise</h3>
+        <p class="text-gray-600">
+          Pakete ab 19 € für Haushalte, 49 €/Nutzer/Monat für KMU.
+        </p>
+        <span class="mt-4 inline-flex items-center gap-1 text-indigo-700 text-sm opacity-90 group-hover:opacity-100">
+          Mehr erfahren →
+        </span>
+      </a>
+
+      <a href="/pakete/hilfe" class="group p-6 rounded-3xl bg-white shadow hover:shadow-xl hover:-translate-y-1 transition">
+        <h3 class="font-semibold mb-1">Schnelle Hilfe</h3>
+        <p class="text-gray-600">
+          Remote am selben Werktag, Vor-Ort in Köln nach Absprache.
+        </p>
+        <span class="mt-4 inline-flex items-center gap-1 text-indigo-700 text-sm opacity-90 group-hover:opacity-100">
+          Mehr erfahren →
+        </span>
+      </a>
     </div>
   </section>
 </Base>
