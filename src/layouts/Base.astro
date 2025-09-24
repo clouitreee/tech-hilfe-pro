@@ -1,6 +1,9 @@
 ---
 import "../styles/global.css";
 
+// Solo producción
+const isProd = import.meta.env.PROD;
+
 // Props sobrescribibles por página
 const {
   title = "Tech Hilfe Pro – IT Service & Beratung in Köln",
@@ -106,10 +109,16 @@ const websiteSchema = {
     <script type="application/ld+json">{JSON.stringify(localBusiness)}</script>
     <script type="application/ld+json">{JSON.stringify(websiteSchema)}</script>
 
-    <!-- Umami Analytics (privacy-friendly) -->
-    <script defer src="https://cloud.umami.is/script.js" data-website-id="56b58f40-736a-4f96-9520-3e789b49467f"></script>
+    <!-- Umami solo en producción -->
+    {isProd && (
+      <script
+        defer
+        src="https://cloud.umami.is/script.js"
+        data-website-id="56b58f40-736a-4f96-9520-3e789b49467f">
+      </script>
+    )}
 
-    <!-- Variables de marca globales -->
+    <!-- Variables de marca globales + anim util -->
     <style>
       :root {
         --brand: {BRAND.primary};

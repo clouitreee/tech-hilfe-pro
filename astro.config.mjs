@@ -1,13 +1,20 @@
+// astro.config.mjs
 // @ts-check
-import mdx from '@astrojs/mdx';
-import sitemap from '@astrojs/sitemap';
-import { defineConfig } from 'astro/config';
-import tailwindcss from '@tailwindcss/vite';
+import { defineConfig } from "astro/config";
+import mdx from "@astrojs/mdx";
+import sitemap from "@astrojs/sitemap";
+import tailwind from "@astrojs/tailwind";
 
 export default defineConfig({
-  site: 'https://techhilfepro.de',
-  output: 'static',
-  build: { format: 'file' }, // genera /index.html, /senioren/index.html, etc.
-  integrations: [mdx(), sitemap()],
-  vite: { plugins: [tailwindcss()] },
+  site: "https://techhilfepro.de",
+  output: "static",
+  build: { format: "file" },
+  integrations: [
+    tailwind({
+      configFile: "./tailwind.config.mjs", // <— nombre correcto
+      applyBaseStyles: true,
+    }),
+    mdx(),
+    sitemap(),
+  ],
 });
