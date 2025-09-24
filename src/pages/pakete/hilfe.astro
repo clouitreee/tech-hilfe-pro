@@ -1,0 +1,51 @@
+---
+import Base from "../../layouts/Base.astro";
+
+const title = "Schnelle Hilfe – Tech Hilfe Pro";
+const desc = "Remote-Support am selben Werktag, Vor-Ort in Köln nach Absprache. Flexible Hilfe für Haushalte & KMU.";
+---
+
+<Base {title} {desc}>
+  <section class="max-w-3xl mx-auto space-y-6">
+    <h1 class="text-3xl font-bold text-gray-900">Schnelle Hilfe</h1>
+    <p class="text-lg text-gray-700">
+      Wenn es schnell gehen muss: Remote am selben Werktag, Vor-Ort in Köln flexibel buchbar.
+      Ideal für dringende Fälle, die keine Zeit verlieren dürfen.
+    </p>
+
+    <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm space-y-4">
+      <h2 class="text-xl font-semibold text-indigo-700">Leistungen</h2>
+      <ul class="list-disc pl-5 space-y-2 text-gray-700">
+        <li>Remote-Support innerhalb weniger Stunden (Mo–Fr)</li>
+        <li>Vor-Ort-Hilfe in Köln nach Absprache</li>
+        <li>Fehleranalyse, Virenbeseitigung, Software-Setup</li>
+        <li>Optionale Notfallnummer für akute Fälle</li>
+      </ul>
+    </div>
+
+    <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm space-y-4">
+      <h2 class="text-xl font-semibold text-indigo-700">Preise</h2>
+      <ul class="space-y-2 text-gray-700">
+        <li>Remote-Support: <strong>ab 29 € / Fall</strong></li>
+        <li>Vor-Ort: <strong>ab 49 € / Stunde</strong> (+ Anfahrt)</li>
+      </ul>
+    </div>
+
+    <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm space-y-4">
+      <h2 class="text-xl font-semibold text-indigo-700">Konditionen</h2>
+      <ul class="list-disc pl-5 space-y-2 text-gray-700">
+        <li>Abrechnung nach Aufwand</li>
+        <li>Auch für Einmalfälle ohne Abo buchbar</li>
+      </ul>
+    </div>
+
+    <div class="text-center mt-8">
+      <a 
+        href="https://wa.me/4915565029989?text=Ich%20brauche%20schnelle%20Hilfe%20bei%20meinem%20Problem."
+        class="inline-block px-6 py-3 rounded-xl bg-emerald-500 text-white font-medium hover:bg-emerald-600 transition"
+      >
+        Soforthilfe anfordern
+      </a>
+    </div>
+  </section>
+</Base>
