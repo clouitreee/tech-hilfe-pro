@@ -30,18 +30,8 @@ const localBusiness = {
   "areaServed": ["Köln", "NRW"],
   "sameAs": ["https://wa.me/4915565029989"],
   "openingHoursSpecification": [
-    {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
-      "opens": "09:00",
-      "closes": "18:00"
-    },
-    {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": "Saturday",
-      "opens": "09:00",
-      "closes": "14:00"
-    }
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "09:00", "closes": "18:00" },
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "09:00", "closes": "14:00" }
   ]
 };
 
@@ -93,7 +83,6 @@ const websiteSchema = {
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <!-- <link rel="manifest" href="/manifest.webmanifest" /> -->
 
     <!-- Preloads útiles -->
     <link rel="preload" as="image" href="/og-image.jpg" imagesrcset="/og-image.jpg" />
@@ -118,23 +107,23 @@ const websiteSchema = {
       Zum Inhalt springen
     </a>
 
-    <!-- Header sin borde + fade decorativo -->
+    <!-- Header: sin bordes, CTAs ocultas en móvil, fade sutil -->
     <header class="sticky top-0 z-50 bg-white/90 backdrop-blur">
-      <div class="mx-auto max-w-screen-xl px-6 py-4 flex items-center justify-between">
-        <a href="/" class="font-semibold text-xl text-indigo-700 tracking-tight" aria-label="Tech Hilfe Pro Startseite">
+      <div class="mx-auto max-w-screen-xl px-4 md:px-6 py-3 md:py-4 flex items-center justify-between">
+        <a href="/" class="font-semibold text-lg md:text-xl text-indigo-700 tracking-tight" aria-label="Tech Hilfe Pro Startseite">
           Tech Hilfe Pro
         </a>
-        <nav class="flex items-center gap-3" aria-label="Hauptnavigation">
+        <nav class="hidden md:flex items-center gap-3" aria-label="Hauptnavigation">
           <a
             href="/preise"
-            class="px-4 py-2 rounded-xl bg-indigo-600 text-white hover:bg-indigo-700 transition"
+            class="px-4 py-2 rounded-xl bg-indigo-600 text-white hover:bg-indigo-700 transition text-sm"
             data-umami-event="Header: Diagnose"
           >
             20-Min. Diagnose
           </a>
           <a
             href="https://wa.me/4915565029989?text=Hallo%2C%20ich%20brauche%20IT-Hilfe%20in%20Koeln."
-            class="px-4 py-2 rounded-xl bg-emerald-500 text-white hover:bg-emerald-600 transition"
+            class="px-4 py-2 rounded-xl bg-emerald-500 text-white hover:bg-emerald-600 transition text-sm"
             rel="noopener"
             data-umami-event="Header: WhatsApp"
           >
@@ -142,15 +131,15 @@ const websiteSchema = {
           </a>
         </nav>
       </div>
-      <div class="h-1 bg-gradient-to-r from-indigo-100 via-transparent to-indigo-100"></div>
+      <div class="h-px md:h-1 bg-gradient-to-r from-indigo-100 via-transparent to-indigo-100"></div>
     </header>
 
-    <!-- Main -->
-    <main id="main" class="mx-auto max-w-screen-xl px-6 py-16">
+    <!-- Main: padding extra abajo para no chocar con el sticky móvil -->
+    <main id="main" class="mx-auto max-w-screen-xl px-4 md:px-6 py-12 md:py-16 pb-28 md:pb-16">
       <slot />
     </main>
 
-    <!-- Footer con desvanecido, sin líneas -->
+    <!-- Footer con desvanecido, cero líneas -->
     <footer class="bg-gradient-to-t from-gray-50 via-white to-white">
       <div class="mx-auto max-w-screen-xl px-6 py-12 grid grid-cols-1 md:grid-cols-3 gap-8 text-sm">
         <!-- Marca -->
@@ -193,7 +182,6 @@ const websiteSchema = {
         </div>
       </div>
 
-      <!-- Separador suave antes del copyright -->
       <div class="h-1 bg-gradient-to-r from-indigo-100 via-transparent to-indigo-100"></div>
 
       <div class="mx-auto max-w-screen-xl px-6 py-6 text-xs text-gray-500 text-center">
@@ -201,11 +189,16 @@ const websiteSchema = {
       </div>
     </footer>
 
-    <!-- Sticky CTA (solo móvil) sin borde -->
-    <div class="fixed inset-x-0 bottom-0 z-40 md:hidden bg-white/95 backdrop-blur px-4 py-3 flex gap-3 justify-center">
-      <a href="/preise" class="flex-1 text-center px-4 py-3 rounded-xl bg-indigo-600 text-white font-medium" data-umami-event="Sticky: Diagnose">20-Min. Diagnose</a>
+    <!-- Sticky CTA (solo móvil) con safe-area y sombra suave -->
+    <div
+      class="fixed inset-x-0 bottom-0 z-40 md:hidden bg-white/95 backdrop-blur px-4 py-3 flex gap-3 justify-center shadow-[0_-6px_12px_rgba(0,0,0,.06)]"
+      style="padding-bottom: calc(env(safe-area-inset-bottom) + 12px);"
+    >
+      <a href="/preise"
+         class="flex-1 text-center px-4 py-3 rounded-xl bg-indigo-600 text-white font-medium text-sm"
+         data-umami-event="Sticky: Diagnose">20-Min. Diagnose</a>
       <a href="https://wa.me/4915565029989?text=Hallo%2C%20ich%20brauche%20IT-Hilfe%20in%20Koeln."
-         class="flex-1 text-center px-4 py-3 rounded-xl bg-emerald-500 text-white font-medium"
+         class="flex-1 text-center px-4 py-3 rounded-xl bg-emerald-500 text-white font-medium text-sm"
          rel="noopener" data-umami-event="Sticky: WhatsApp">WhatsApp</a>
     </div>
 
