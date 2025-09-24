@@ -1,0 +1,52 @@
+---
+import Base from "../../layouts/Base.astro";
+
+const title = "IT-Service Pakete – Tech Hilfe Pro";
+const desc = "Übersicht unserer IT-Service Pakete für Köln: Proaktiv statt reaktiv, Transparente Preise und Schnelle Hilfe.";
+---
+
+<Base {title} {desc}>
+  <section class="max-w-4xl mx-auto space-y-10">
+    <header class="text-center space-y-4">
+      <h1 class="text-4xl font-bold text-indigo-700">Unsere Pakete</h1>
+      <p class="text-lg text-gray-700">
+        Wählen Sie das passende Paket für Ihre Bedürfnisse – transparent, flexibel und jederzeit kündbar.
+      </p>
+    </header>
+
+    <div class="grid gap-6 md:grid-cols-3">
+      <!-- Proaktiv -->
+      <a href="/pakete/proaktiv" class="group p-6 rounded-3xl bg-white shadow hover:shadow-xl hover:-translate-y-1 transition">
+        <h2 class="text-xl font-semibold">Proaktiv statt reaktiv</h2>
+        <p class="mt-2 text-gray-600 text-base">
+          Weniger Ausfälle, planbare Kosten und klare Zuständigkeit.
+        </p>
+        <span class="mt-4 inline-flex items-center gap-1 text-indigo-700 text-sm opacity-90 group-hover:opacity-100">
+          Mehr erfahren →
+        </span>
+      </a>
+
+      <!-- Preise -->
+      <a href="/pakete/preise" class="group p-6 rounded-3xl bg-white shadow hover:shadow-xl hover:-translate-y-1 transition">
+        <h2 class="text-xl font-semibold">Transparente Preise</h2>
+        <p class="mt-2 text-gray-600 text-base">
+          Pakete ab 19 € für Haushalte, 49 €/Nutzer/Monat für KMU.
+        </p>
+        <span class="mt-4 inline-flex items-center gap-1 text-indigo-700 text-sm opacity-90 group-hover:opacity-100">
+          Mehr erfahren →
+        </span>
+      </a>
+
+      <!-- Hilfe -->
+      <a href="/pakete/hilfe" class="group p-6 rounded-3xl bg-white shadow hover:shadow-xl hover:-translate-y-1 transition">
+        <h2 class="text-xl font-semibold">Schnelle Hilfe</h2>
+        <p class="mt-2 text-gray-600 text-base">
+          Remote-Support am selben Werktag, Vor-Ort in Köln flexibel buchbar.
+        </p>
+        <span class="mt-4 inline-flex items-center gap-1 text-indigo-700 text-sm opacity-90 group-hover:opacity-100">
+          Mehr erfahren →
+        </span>
+      </a>
+    </div>
+  </section>
+</Base>

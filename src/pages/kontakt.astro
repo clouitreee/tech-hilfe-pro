@@ -1,15 +1,96 @@
 ---
+// src/pages/kontakt.astro
 import Base from "../layouts/Base.astro";
 ---
+
 <Base title="Kontakt | Tech Hilfe Pro" desc="Kontakt & 20-Min. Diagnose-Gespräch">
   <h1 class="text-3xl font-bold mb-6">Kontakt & Diagnose-Gespräch</h1>
-  <form action="https://formspree.io/f/TU_ID" method="POST" class="bg-white p-6 rounded-2xl shadow max-w-xl space-y-4">
-    <input required name="name" placeholder="Name" class="w-full border rounded-xl p-3"/>
-    <input required type="email" name="email" placeholder="E-Mail" class="w-full border rounded-xl p-3"/>
-    <input name="phone" placeholder="Telefon" class="w-full border rounded-xl p-3"/>
-    <select name="type" class="w-full border rounded-xl p-3"><option>Haushalt</option><option>KMU</option></select>
-    <textarea required name="message" placeholder="Ihr Anliegen (max. 140 Zeichen)" maxlength="140" class="w-full border rounded-xl p-3"></textarea>
-    <label class="text-sm text-gray-600"><input type="checkbox" required class="mr-2"/> Ich stimme der Verarbeitung gemäß Datenschutzerklärung zu.</label>
-    <button class="px-5 py-3 rounded-xl bg-indigo-600 text-white">Senden</button>
+
+  <form
+    action="https://formspree.io/f/mjkavqpv"
+    method="POST"
+    class="bg-white p-6 rounded-2xl shadow max-w-xl space-y-4"
+    data-umami-event="Kontakt abgesendet"
+  >
+    <!-- redirect después de enviar -->
+    <input type="hidden" name="_redirect" value="https://techhilfepro.de/danke" />
+    <!-- asunto del correo en Formspree -->
+    <input type="hidden" name="_subject" value="Neue Anfrage über techhilfepro.de" />
+    <!-- a quién responder -->
+    <input type="hidden" name="_replyto" value="" />
+    <!-- honeypot anti-bots -->
+    <input type="text" name="_gotcha" class="hidden" tabindex="-1" autocomplete="off" />
+
+    <div>
+      <label for="name" class="block text-sm font-medium mb-1">Name</label>
+      <input
+        id="name"
+        type="text"
+        name="name"
+        required
+        autocomplete="name"
+        placeholder="Ihr Name"
+        class="w-full border rounded-xl p-3"
+      />
+    </div>
+
+    <div>
+      <label for="email" class="block text-sm font-medium mb-1">E-Mail</label>
+      <input
+        id="email"
+        type="email"
+        name="email"
+        required
+        autocomplete="email"
+        placeholder="name@beispiel.de"
+        class="w-full border rounded-xl p-3"
+      />
+    </div>
+
+    <div>
+      <label for="phone" class="block text-sm font-medium mb-1">Telefon (optional)</label>
+      <input
+        id="phone"
+        type="tel"
+        name="phone"
+        inputmode="tel"
+        autocomplete="tel"
+        placeholder="+49 …"
+        class="w-full border rounded-xl p-3"
+      />
+    </div>
+
+    <div>
+      <label for="type" class="block text-sm font-medium mb-1">Kundentyp</label>
+      <select id="type" name="type" class="w-full border rounded-xl p-3">
+        <option value="Haushalt">Haushalt</option>
+        <option value="KMU">KMU</option>
+      </select>
+    </div>
+
+    <div>
+      <label for="message" class="block text-sm font-medium mb-1">Ihr Anliegen</label>
+      <textarea
+        id="message"
+        name="message"
+        required
+        maxlength="140"
+        placeholder="Kurz schildern (max. 140 Zeichen)…"
+        class="w-full border rounded-xl p-3"
+      ></textarea>
+      <p class="text-xs text-gray-500 mt-1">Max. 140 Zeichen. Ja, breve. Como un WhatsApp, pero útil.</p>
+    </div>
+
+    <label class="text-sm text-gray-600 flex items-start gap-2">
+      <input type="checkbox" required class="mt-1" />
+      <span>
+        Ich stimme der Verarbeitung gemäß
+        <a href="/datenschutz" class="underline">Datenschutzerklärung</a> zu.
+      </span>
+    </label>
+
+    <button type="submit" class="px-5 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white">
+      Senden
+    </button>
   </form>
 </Base>
