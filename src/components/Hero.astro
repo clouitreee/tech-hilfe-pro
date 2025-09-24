@@ -1,0 +1,85 @@
+---
+// src/components/Hero.astro
+const WA_TEXT = encodeURIComponent(
+  "Hallo! Ich hätte gern eine kurze Erstberatung zu meinem Windows-PC. Passt heute oder morgen?"
+);
+const WHATSAPP_LINK = `https://wa.me/4915565029989?text=${WA_TEXT}`;
+---
+<section class="hero">
+  <div class="container">
+    <h1 class="hero-title" data-split>
+      Vor-Ort & Online-Support<br />
+      für deinen Windows-PC
+    </h1>
+
+    <p class="hero-sub">
+      Schnelle, verständliche IT-Hilfe für Privat & KMU in Köln. Planbare Kosten, klare Sprache,
+      verlässlicher Service.
+    </p>
+
+    <div class="badges" aria-label="Leistungsmerkmale">
+      <span class="chip chip--muted">In Köln & Umgebung</span>
+      <span class="chip chip--muted">Monatlich kündbar</span>
+      <span class="chip chip--muted">DSGVO-konform</span>
+    </div>
+
+    <div class="cta-row">
+      <a class="btn btn-primary" href="/kontakt" data-umami-event="Hero: Erstberatung">
+        Kostenlose Erstberatung
+      </a>
+      <a
+        class="btn btn-whatsapp"
+        href={WHATSAPP_LINK}
+        target="_blank"
+        rel="nofollow noopener"
+        data-umami-event="Hero: WhatsApp"
+      >
+        WhatsApp-Support starten
+      </a>
+    </div>
+  </div>
+
+  <!-- Animación de letras con Motion One -->
+  <script type="module">
+    import { animate, stagger } from "@motionone/dom";
+
+    const reduce =
+      window.matchMedia &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (!reduce) {
+      const el = document.querySelector("[data-split]");
+      if (el) {
+        const original = el.textContent;
+        el.textContent = "";
+        const frag = document.createDocumentFragment();
+        for (const ch of original) {
+          const span = document.createElement("span");
+          span.className = "char";
+          span.textContent = ch;
+          frag.appendChild(span);
+        }
+        el.appendChild(frag);
+
+        const chars = el.querySelectorAll(".char");
+        animate(
+          chars,
+          { transform: ["translateY(14px)", "translateY(0px)"], opacity: [0, 1] },
+          { duration: 0.6, delay: stagger(0.012), easing: "cubic-bezier(.22,.61,.36,1)" }
+        );
+
+        // micro-interacción al mover el cursor por el título
+        el.addEventListener("pointermove", (e) => {
+          const rect = el.getBoundingClientRect();
+          const midX = rect.left + rect.width / 2;
+          const dir = e.clientX < midX ? -1 : 1;
+          animate(
+            chars,
+            { transform: [`translateY(${dir * -2}px)`, "translateY(0px)"] },
+            { duration: 0.35 }
+          );
+        });
+      }
+    }
+  </script>
+</section>

@@ -1,18 +1,129 @@
 @import "tailwindcss";
 
-/* === Typed hero cursor === */
-.typed-container { white-space: nowrap; }
-.typed-cursor {
-  display: inline-block;
-  width: 1px;
-  height: 1em;
-  background: currentColor;
-  margin-left: 2px;
-  vertical-align: -0.15em;
-  opacity: 0.7;
-  animation: tc-blink 0.7s steps(1) infinite;
+/* src/styles/global.css */
+
+/* Reset mínimo y tipografía tipo Apple */
+:root {
+  --radius-xl: 14px;
+  --shadow-soft: 0 2px 10px rgba(0,0,0,.06);
+  --shadow-cta: 0 8px 24px rgba(0,0,0,.12);
+  --shadow-3d: 0 1px 0 rgba(0,0,0,.06), 0 6px 12px rgba(0,0,0,.08);
+  --ring: 0 0 0 4px rgba(99, 102, 241, .18);
 }
-@keyframes tc-blink { 50% { opacity: 0.15; } }
+
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  color: #0b0b0c;
+  background: #fff;
+  font-family: ui-sans-serif, -apple-system, system-ui, "Segoe UI", Roboto, Inter, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Accesibilidad: reducir animaciones cuando el usuario lo pide */
 @media (prefers-reduced-motion: reduce) {
-  .typed-cursor { animation: none; opacity: 0.6; }
+  * { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
+}
+
+/* Utilidades de botones */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  border-radius: var(--radius-xl);
+  transition: transform .18s ease, box-shadow .18s ease, background-color .18s ease, color .18s ease, border-color .18s ease;
+  font-weight: 600;
+  line-height: 1;
+  text-decoration: none;
+}
+
+.btn-primary {
+  background: #111;
+  color: #fff;
+  padding: 0.95rem 1.25rem;
+  box-shadow: var(--shadow-soft);
+  border: 1px solid rgba(0,0,0,.12);
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: var(--shadow-cta); }
+.btn-primary:active { transform: translateY(0); }
+.btn-primary:focus-visible { outline: none; box-shadow: var(--ring); }
+
+/* Variante WhatsApp principal (verde discreto) */
+.btn-whatsapp {
+  background: #25D366;
+  color: #0b0b0c;
+  padding: 0.95rem 1.25rem;
+  border: 1px solid rgba(0,0,0,.08);
+}
+.btn-whatsapp:hover { transform: translateY(-2px); box-shadow: var(--shadow-cta); }
+.btn-whatsapp:active { transform: translateY(0); }
+.btn-whatsapp:focus-visible { outline: none; box-shadow: 0 0 0 4px rgba(37,211,102,.22); }
+
+/* Chips o botones secundarios con efecto 3D sutil */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  height: 36px;
+  padding: 0 .9rem;
+  border-radius: 999px;
+  border: 1px solid rgba(0,0,0,.08);
+  background: #fff;
+  box-shadow: var(--shadow-3d);
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease, background-color .18s ease;
+  font-weight: 600;
+  color: #1a1a1c;
+}
+.chip:hover { transform: translateY(-1px); box-shadow: 0 2px 0 rgba(0,0,0,.08), 0 10px 18px rgba(0,0,0,.10); }
+.chip:active { transform: translateY(0); }
+.chip--muted { color: #3b3b3f; background: #fafafa; }
+
+/* Título grande estilo Apple */
+.hero-title {
+  font-size: clamp(36px, 6vw, 64px);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  font-weight: 800;
+  margin: 0 0 16px 0;
+}
+
+/* Subtítulo */
+.hero-sub {
+  font-size: clamp(16px, 2.6vw, 20px);
+  color: #3b3b3f;
+  margin: 0 0 28px 0;
+}
+
+/* Grid de CTAs */
+.cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* Área hero sin fondos feos */
+.hero {
+  padding: clamp(48px, 8vw, 80px) 0;
+}
+
+/* Contenedor centrado */
+.container {
+  width: min(1100px, 92%);
+  margin-inline: auto;
+}
+
+/* Estética de “cursor sobre texto” para el título animado */
+.hero [data-split] .char {
+  display: inline-block;
+  will-change: transform, opacity;
+}
+
+/* Badges fila */
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 20px 0;
 }
