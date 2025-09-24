@@ -1,1 +1,18 @@
 @import "tailwindcss";
+
+/* === Typed hero cursor === */
+.typed-container { white-space: nowrap; }
+.typed-cursor {
+  display: inline-block;
+  width: 1px;
+  height: 1em;
+  background: currentColor;
+  margin-left: 2px;
+  vertical-align: -0.15em;
+  opacity: 0.7;
+  animation: tc-blink 0.7s steps(1) infinite;
+}
+@keyframes tc-blink { 50% { opacity: 0.15; } }
+@media (prefers-reduced-motion: reduce) {
+  .typed-cursor { animation: none; opacity: 0.6; }
+}

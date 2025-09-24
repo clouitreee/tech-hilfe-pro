@@ -6,28 +6,40 @@ import Base from "../layouts/Base.astro";
   title="IT-Service Köln | Tech Hilfe Pro"
   desc="Planbare Kosten, proaktive Betreuung und schneller Support in Köln und Umgebung. Für Privathaushalte und KMU – vor Ort oder remote."
 >
-  <!-- HERO -->
-  <section class="relative overflow-hidden">
-    <!-- Fondo suave -->
-    <div class="absolute inset-0 -z-10 bg-gradient-to-b from-[color:var(--brand-grad-from)]/8 via-transparent to-transparent"></div>
+  <!-- HERO nuevo: fondo de marca + efecto typed -->
+  <section class="relative overflow-hidden text-white">
+    <!-- Fondo de marca a toda anchura con un toque radial -->
+    <div class="absolute inset-0 -z-10"
+      style={`background:
+        radial-gradient(1200px 600px at 20% -10%, rgba(255,255,255,.12), transparent),
+        linear-gradient(120deg, var(--brand-grad-from), var(--brand-grad-to));`}>
+    </div>
 
-    <div class="grid gap-10 lg:grid-cols-2 items-center">
-      <!-- Texto -->
-      <div class="space-y-6">
-        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-zinc-900">
-          IT-Service, der einfach läuft.
+    <div class="py-12 md:py-16">
+      <div class="space-y-6 max-w-3xl">
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight">
+          Vor-Ort & Online-Support für dein
+          <span class="block">
+            <!-- Texto accesible para lectores de pantalla -->
+            <span class="sr-only">
+              Vor-Ort und Online-Support für dein WLAN, Windows-PC, Mac, Arbeitsplatz,
+              Drucker und Scanner, Überwachungskamera, Tablet, Smartphone, Smart-Home-Geräte und Heimnetz.
+            </span>
+            <!-- Texto animado (visible) -->
+            <span id="typed-word" class="typed-container" aria-hidden="true">WLAN</span>
+            <span class="typed-cursor" aria-hidden="true"></span>
+          </span>
         </h1>
 
-        <p class="text-lg md:text-xl text-zinc-700 max-w-2xl">
-          Planbare Kosten, proaktive Betreuung und schneller Support in Köln und Umgebung.
-          Für Privathaushalte und kleine Unternehmen – vor Ort oder remote.
+        <p class="text-lg md:text-xl/relaxed text-white/90 max-w-2xl">
+          Die beste Tech-Unterstützung für Privat und KMU – zuverlässig, transparent, in Köln und Umgebung.
         </p>
 
         <!-- Chips -->
         <div class="flex flex-wrap gap-3">
-          <span class="px-3 py-1 rounded-full bg-white shadow text-sm text-zinc-700 ring-1 ring-black/5">In Köln & Umgebung</span>
-          <span class="px-3 py-1 rounded-full bg-white shadow text-sm text-zinc-700 ring-1 ring-black/5">Monatlich kündbar</span>
-          <span class="px-3 py-1 rounded-full bg-white shadow text-sm text-zinc-700 ring-1 ring-black/5">DSGVO-konform</span>
+          <span class="px-3 py-1 rounded-full bg-white/10 ring-1 ring-white/20 text-sm">In Köln & Umgebung</span>
+          <span class="px-3 py-1 rounded-full bg-white/10 ring-1 ring-white/20 text-sm">Monatlich kündbar</span>
+          <span class="px-3 py-1 rounded-full bg-white/10 ring-1 ring-white/20 text-sm">DSGVO-konform</span>
         </div>
 
         <!-- CTAs -->
@@ -50,21 +62,6 @@ import Base from "../layouts/Base.astro";
             WhatsApp-Support starten
           </a>
         </div>
-      </div>
-
-      <!-- Imagen hero optimizada -->
-      <div class="relative">
-        <picture>
-          <img
-            src="/images/hero-1600.jpg"
-            srcset="/images/hero-800.jpg 800w, /images/hero-1600.jpg 1600w"
-            sizes="(max-width: 1024px) 100vw, 50vw"
-            alt="Proaktiver IT-Service: Zwei Personen arbeiten gemeinsam am Laptop"
-            width="1600" height="1067"
-            class="h-64 md:h-80 lg:h-[26rem] w-full object-cover rounded-3xl ring-1 ring-black/5 shadow-inner"
-            loading="eager" fetchpriority="high"
-          />
-        </picture>
       </div>
     </div>
   </section>
@@ -184,4 +181,7 @@ import Base from "../layouts/Base.astro";
 
   <!-- Separador inferior -->
   <div class="my-16 h-px bg-zinc-200/70"></div>
+
+  <!-- Carga del script typed solo en esta página -->
+  <script src="/scripts/typed.js" defer></script>
 </Base>
