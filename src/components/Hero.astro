@@ -1,9 +1,9 @@
 ---
-import { onMount } from "astro/jsx-runtime";
+/* Nada de imports fantasmas aquí. */
 ---
 
 <section aria-labelledby="hero-title" class="relative overflow-hidden">
-  <!-- Fondo: gradiente suave, imagen opcional -->
+  <!-- Fondo: gradiente suave -->
   <div class="absolute inset-0 pointer-events-none bg-[radial-gradient(1200px_600px_at_50%_-200px,rgba(99,102,241,0.35),transparent_60%)]"></div>
 
   <div class="mx-auto max-w-6xl px-4 pt-16 pb-20 sm:pt-24 sm:pb-28">
@@ -13,9 +13,9 @@ import { onMount } from "astro/jsx-runtime";
         <h1 id="hero-title" class="text-balance font-extrabold tracking-tight text-4xl sm:text-5xl lg:text-6xl">
           <span class="block">IT-Hilfe,</span>
           <span class="sr-only">die vorausdenkt.</span>
+
           <!-- Bloque animado por letras -->
           <span id="hero-rotator" class="relative block h-[1.25em]">
-            <!-- Palabras que rotan; mismas dimensiones para evitar CLS -->
             <span class="rotator-word">die vorausdenkt.</span>
             <span class="rotator-word">verständlich erklärt.</span>
             <span class="rotator-word">schnell vor Ort.</span>
@@ -35,7 +35,6 @@ import { onMount } from "astro/jsx-runtime";
 
       <!-- Columna imagen del hero -->
       <div class="relative">
-        <!-- Reemplaza estas rutas por tus fotos reales -->
         <picture>
           <source srcset="/images/hero-desktop.avif" type="image/avif" />
           <source srcset="/images/hero-desktop.webp" type="image/webp" />
@@ -53,8 +52,9 @@ import { onMount } from "astro/jsx-runtime";
   </div>
 </section>
 
-<script>
-  // Animación accesible con Motion One. Fallback automático si el usuario pide menos movimiento.
+<!-- Inline para que ejecute en el cliente sin líos -->
+<script is:inline>
+  // Animación accesible con Motion One
   document.addEventListener("DOMContentLoaded", async () => {
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const root = document.getElementById("hero-rotator");
@@ -63,7 +63,7 @@ import { onMount } from "astro/jsx-runtime";
     const words = Array.from(root.querySelectorAll(".rotator-word"));
     if (words.length === 0) return;
 
-    // Estado inicial: solo la primera visible
+    // Estado inicial: solo la primera visible, sin CLS
     words.forEach((w, i) => {
       w.style.position = "absolute";
       w.style.inset = "0";
@@ -72,21 +72,26 @@ import { onMount } from "astro/jsx-runtime";
       w.style.transform = "translateY(0)";
     });
 
-    if (reduce) return; // sin animaciones
+    if (reduce) return; // respetar prefers-reduced-motion
 
     const { animate } = await import("@motionone/dom");
 
     let index = 0;
     const showWord = (current, next) => {
-      // salir palabra actual
-      animate(current, { opacity: [1, 0], transform: ["translateY(0)", "translateY(-10px)"] }, { duration: 0.20, easing: "ease-in" })
-        .finished.then(() => {
-          current.style.opacity = "0";
-          // entrar siguiente
-          next.style.opacity = "0";
-          next.style.transform = "translateY(10px)";
-          animate(next, { opacity: [0, 1], transform: ["translateY(10px)", "translateY(0)"] }, { duration: 0.24, easing: "ease-out" });
-        });
+      animate(
+        current,
+        { opacity: [1, 0], transform: ["translateY(0)", "translateY(-10px)"] },
+        { duration: 0.20, easing: "ease-in" }
+      ).finished.then(() => {
+        current.style.opacity = "0";
+        next.style.opacity = "0";
+        next.style.transform = "translateY(10px)";
+        animate(
+          next,
+          { opacity: [0, 1], transform: ["translateY(10px)", "translateY(0)"] },
+          { duration: 0.24, easing: "ease-out" }
+        );
+      });
     };
 
     setInterval(() => {

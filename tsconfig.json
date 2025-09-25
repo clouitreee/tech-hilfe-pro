@@ -1,8 +1,22 @@
 {
   "extends": "astro/tsconfigs/strict",
   "include": [".astro/types.d.ts", "**/*"],
-  "exclude": ["dist"],
+  "exclude": ["dist", "node_modules"],
   "compilerOptions": {
-    "strictNullChecks": true
+    "strictNullChecks": true,
+
+    // === Alias limpio a /src ===
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    },
+
+    // Opcional, pero útil en proyectos JS+Astro
+    "allowJs": true,
+    "checkJs": false,
+    "moduleResolution": "Bundler",
+    "module": "ESNext",
+    "target": "ES2022",
+    "jsx": "preserve"
   }
 }
