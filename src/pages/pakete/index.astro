@@ -1,52 +1,40 @@
 ---
-import Base from "../../layouts/Base.astro";
+import Base from "../layouts/Base.astro";
+import Hero from "../components/Hero.astro";
 
-const title = "IT-Service Pakete – Tech Hilfe Pro";
-const desc = "Übersicht unserer IT-Service Pakete für Köln: Proaktiv statt reaktiv, Transparente Preise und Schnelle Hilfe.";
+const page = {
+  title: "Tech Hilfe Pro – IT-Hilfe, die vorausdenkt",
+  desc: "Sichere, verständliche IT-Hilfe in Köln: proaktive Wartung, sichere Heimnetze, schnelle Hilfe remote & vor Ort."
+};
 ---
 
-<Base {title} {desc}>
-  <section class="max-w-4xl mx-auto space-y-10">
-    <header class="text-center space-y-4">
-      <h1 class="text-4xl font-bold text-indigo-700">Unsere Pakete</h1>
-      <p class="text-lg text-gray-700">
-        Wählen Sie das passende Paket für Ihre Bedürfnisse – transparent, flexibel und jederzeit kündbar.
-      </p>
-    </header>
+<Base { ...page }>
+  <Hero />
 
-    <div class="grid gap-6 md:grid-cols-3">
-      <!-- Proaktiv -->
-      <a href="/pakete/proaktiv" class="group p-6 rounded-3xl bg-white shadow hover:shadow-xl hover:-translate-y-1 transition">
-        <h2 class="text-xl font-semibold">Proaktiv statt reaktiv</h2>
-        <p class="mt-2 text-gray-600 text-base">
-          Weniger Ausfälle, planbare Kosten und klare Zuständigkeit.
-        </p>
-        <span class="mt-4 inline-flex items-center gap-1 text-indigo-700 text-sm opacity-90 group-hover:opacity-100">
-          Mehr erfahren →
-        </span>
-      </a>
+  <!-- Placeholder secciones: en la siguiente pasada las pulimos con copy y JSON-LD -->
+  <section id="leistungen" class="mx-auto max-w-6xl px-4 py-16">
+    <h2 class="text-2xl sm:text-3xl font-bold tracking-tight">Was wir für dich lösen</h2>
+    <p class="mt-3 text-zinc-300 max-w-2xl">Proaktive Wartung, sichere Heimnetze, Backup & Wiederherstellung, Home-Office-Setup, Vor-Ort-Service in Köln.</p>
+  </section>
 
-      <!-- Preise -->
-      <a href="/pakete/preise" class="group p-6 rounded-3xl bg-white shadow hover:shadow-xl hover:-translate-y-1 transition">
-        <h2 class="text-xl font-semibold">Transparente Preise</h2>
-        <p class="mt-2 text-gray-600 text-base">
-          Pakete ab 19 € für Haushalte, 49 €/Nutzer/Monat für KMU.
-        </p>
-        <span class="mt-4 inline-flex items-center gap-1 text-indigo-700 text-sm opacity-90 group-hover:opacity-100">
-          Mehr erfahren →
-        </span>
-      </a>
+  <section id="preise" class="mx-auto max-w-6xl px-4 py-16">
+    <h2 class="text-2xl sm:text-3xl font-bold tracking-tight">Pläne</h2>
+    <p class="mt-3 text-zinc-300">Demnächst: Home & Familie · MSP-Lite (1–10 Nutzer) · Digital-Concierge</p>
+  </section>
 
-      <!-- Hilfe -->
-      <a href="/pakete/hilfe" class="group p-6 rounded-3xl bg-white shadow hover:shadow-xl hover:-translate-y-1 transition">
-        <h2 class="text-xl font-semibold">Schnelle Hilfe</h2>
-        <p class="mt-2 text-gray-600 text-base">
-          Remote-Support am selben Werktag, Vor-Ort in Köln flexibel buchbar.
-        </p>
-        <span class="mt-4 inline-flex items-center gap-1 text-indigo-700 text-sm opacity-90 group-hover:opacity-100">
-          Mehr erfahren →
-        </span>
-      </a>
+  <section id="faq" class="mx-auto max-w-6xl px-4 py-16">
+    <h2 class="text-2xl sm:text-3xl font-bold tracking-tight">FAQ</h2>
+    <ul class="mt-4 space-y-3 text-zinc-300">
+      <li><strong>Wie schnell kommt ihr vorbei?</strong> In Köln oft am selben oder nächsten Werktag.</li>
+      <li><strong>Remote oder vor Ort?</strong> Beides. Wir starten remote und kommen vorbei, wenn nötig.</li>
+    </ul>
+  </section>
+
+  <section id="kontakt" class="mx-auto max-w-6xl px-4 py-16">
+    <h2 class="text-2xl sm:text-3xl font-bold tracking-tight">Kontakt</h2>
+    <div class="mt-4 flex flex-wrap gap-3">
+      <a href="tel:+49221XXXXXXX" class="btn btn-ghost">Anrufen</a>
+      <a href="https://wa.me/4915565029989?text=Hallo!%20Ich%20brauche%20IT-Hilfe%20in%20K%C3%B6ln." class="btn btn-primary">WhatsApp öffnen</a>
     </div>
   </section>
 </Base>

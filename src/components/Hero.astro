@@ -1,123 +1,103 @@
 ---
-// src/components/Hero.astro
-const WA_TEXT = encodeURIComponent(
-  "Hallo! Ich hätte gern eine kurze Erstberatung zu meinem Windows-PC. Passt heute oder morgen?"
-);
-const WHATSAPP_LINK = `https://wa.me/4915565029989?text=${WA_TEXT}`;
+import { onMount } from "astro/jsx-runtime";
 ---
-<section class="hero">
-  <div class="shell">
-    <h1 class="hero-title" data-split>
-      Vor-Ort & Online-Support<br />
-      für deinen Windows-PC
-    </h1>
 
-    <p class="hero-sub">
-      Schnelle, verständliche IT-Hilfe für Privat & KMU in Köln. Planbare Kosten, klare Sprache,
-      verlässlicher Service.
-    </p>
+<section aria-labelledby="hero-title" class="relative overflow-hidden">
+  <!-- Fondo: gradiente suave, imagen opcional -->
+  <div class="absolute inset-0 pointer-events-none bg-[radial-gradient(1200px_600px_at_50%_-200px,rgba(99,102,241,0.35),transparent_60%)]"></div>
 
-    <div class="badges" aria-label="Leistungsmerkmale">
-      <span class="chip chip--muted">In Köln & Umgebung</span>
-      <span class="chip chip--muted">Monatlich kündbar</span>
-      <span class="chip chip--muted">DSGVO-konform</span>
-    </div>
+  <div class="mx-auto max-w-6xl px-4 pt-16 pb-20 sm:pt-24 sm:pb-28">
+    <div class="grid lg:grid-cols-2 gap-10 items-center">
+      <!-- Columna texto -->
+      <div>
+        <h1 id="hero-title" class="text-balance font-extrabold tracking-tight text-4xl sm:text-5xl lg:text-6xl">
+          <span class="block">IT-Hilfe,</span>
+          <span class="sr-only">die vorausdenkt.</span>
+          <!-- Bloque animado por letras -->
+          <span id="hero-rotator" class="relative block h-[1.25em]">
+            <!-- Palabras que rotan; mismas dimensiones para evitar CLS -->
+            <span class="rotator-word">die vorausdenkt.</span>
+            <span class="rotator-word">verständlich erklärt.</span>
+            <span class="rotator-word">schnell vor Ort.</span>
+            <span class="rotator-word">sicher umgesetzt.</span>
+          </span>
+        </h1>
 
-    <div class="cta-row">
-      <a class="btn btn-primary" href="/kontakt" data-umami-event="Hero: Erstberatung">
-        Kostenlose Erstberatung
-      </a>
-      <a
-        class="btn btn-whatsapp"
-        href={WHATSAPP_LINK}
-        target="_blank"
-        rel="nofollow noopener"
-        data-umami-event="Hero: WhatsApp"
-      >
-        WhatsApp-Support starten
-      </a>
+        <p class="mt-6 text-lg text-zinc-300 max-w-xl">
+          Für Zuhause und kleine Unternehmen in Köln: proaktive Wartung, sichere Heimnetze, schnelle Hilfe remote & vor Ort.
+        </p>
+
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="#kontakt" class="btn btn-primary">Jetzt beraten lassen</a>
+          <a href="https://wa.me/4915565029989?text=Hallo!%20Ich%20brauche%20IT-Hilfe%20in%20K%C3%B6ln." class="btn btn-ghost">Per WhatsApp schreiben</a>
+        </div>
+      </div>
+
+      <!-- Columna imagen del hero -->
+      <div class="relative">
+        <!-- Reemplaza estas rutas por tus fotos reales -->
+        <picture>
+          <source srcset="/images/hero-desktop.avif" type="image/avif" />
+          <source srcset="/images/hero-desktop.webp" type="image/webp" />
+          <img
+            src="/images/hero-desktop.jpg"
+            alt="Techniker hilft vor Ort im Home-Office."
+            width="1800" height="1200"
+            decoding="async" fetchpriority="high"
+            class="w-full h-auto rounded-2xl ring-1 ring-white/10 shadow-2xl"
+            sizes="(max-width: 1024px) 100vw, 48rem"
+          />
+        </picture>
+      </div>
     </div>
   </div>
-
-  <!-- Animación con fallback si @motionone/dom no carga -->
-  <script type="module">
-    // Utilidad: split conservando <br> y espacios, envolviendo solo caracteres visibles
-    const splitIntoChars = (root) => {
-      const nodes = Array.from(root.childNodes);
-      root.textContent = "";
-      const frag = document.createDocumentFragment();
-      for (const node of nodes) {
-        if (node.nodeType === Node.TEXT_NODE) {
-          const txt = node.textContent ?? "";
-          for (const ch of txt) {
-            if (ch === " ") { frag.appendChild(document.createTextNode(" ")); continue; }
-            const span = document.createElement("span");
-            span.className = "char";
-            span.textContent = ch;
-            frag.appendChild(span);
-          }
-        } else {
-          frag.appendChild(node); // <br> etc.
-        }
-      }
-      root.appendChild(frag);
-      return root.querySelectorAll(".char");
-    };
-
-    const el = document.querySelector("[data-split]");
-    if (!el) { console.warn("[hero] data-split no encontrado"); }
-
-    const runWAAPI = (chars, opts = {}) => {
-      const base = { duration: 700, easing: "cubic-bezier(.22,.61,.36,1)", fill: "both" };
-      const delayStep = 12; // ms
-      chars.forEach((c, i) => {
-        c.animate(
-          [{ transform: "translateY(16px)", opacity: 0 }, { transform: "translateY(0)", opacity: 1 }],
-          { ...base, delay: i * delayStep, ...opts }
-        );
-      });
-    };
-
-    const setupHover = (chars) => {
-      let raf = 0;
-      el.addEventListener("pointermove", (e) => {
-        cancelAnimationFrame(raf);
-        raf = requestAnimationFrame(() => {
-          const r = el.getBoundingClientRect();
-          const rel = (e.clientX - r.left) / r.width - 0.5; // -0.5..0.5
-          const offset = rel * 4; // px
-          chars.forEach((c) => c.animate([{ transform: `translateY(${offset * -1}px)` }, { transform: "translateY(0)" }], { duration: 250, fill: "both" }));
-        });
-      });
-      el.addEventListener("pointerleave", () => {
-        chars.forEach((c) => c.animate([{ transform: "translateY(0)" }], { duration: 200, fill: "both" }));
-      });
-    };
-
-    if (el) {
-      const chars = splitIntoChars(el);
-
-      // Intento con Motion One; si falla, uso Web Animations API (WAAPI)
-      try {
-        const { animate, stagger } = await import("/node_modules/@motionone/dom/dist/index.mjs");
-        animate(chars, { transform: ["translateY(16px)", "translateY(0px)"], opacity: [0, 1] }, { duration: 0.7, delay: stagger(0.012), easing: "cubic-bezier(.22,.61,.36,1)" });
-        // micro wave
-        let raf = 0;
-        el.addEventListener("pointermove", (e) => {
-          cancelAnimationFrame(raf);
-          raf = requestAnimationFrame(() => {
-            const r = el.getBoundingClientRect();
-            const rel = (e.clientX - r.left) / r.width - 0.5;
-            const offset = rel * 4;
-            animate(chars, { transform: `translateY(${offset * -1}px)` }, { duration: 0.25 });
-          });
-        });
-        el.addEventListener("pointerleave", () => animate(chars, { transform: "translateY(0px)" }, { duration: 0.25 }));
-      } catch (err) {
-        console.warn("[hero] Motion One no cargó, uso WAAPI", err);
-        runWAAPI(chars);
-        setupHover(chars);
-      }
-    }
-  </script>
 </section>
+
+<script>
+  // Animación accesible con Motion One. Fallback automático si el usuario pide menos movimiento.
+  document.addEventListener("DOMContentLoaded", async () => {
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const root = document.getElementById("hero-rotator");
+    if (!root) return;
+
+    const words = Array.from(root.querySelectorAll(".rotator-word"));
+    if (words.length === 0) return;
+
+    // Estado inicial: solo la primera visible
+    words.forEach((w, i) => {
+      w.style.position = "absolute";
+      w.style.inset = "0";
+      w.style.whiteSpace = "nowrap";
+      w.style.opacity = i === 0 ? "1" : "0";
+      w.style.transform = "translateY(0)";
+    });
+
+    if (reduce) return; // sin animaciones
+
+    const { animate } = await import("@motionone/dom");
+
+    let index = 0;
+    const showWord = (current, next) => {
+      // salir palabra actual
+      animate(current, { opacity: [1, 0], transform: ["translateY(0)", "translateY(-10px)"] }, { duration: 0.20, easing: "ease-in" })
+        .finished.then(() => {
+          current.style.opacity = "0";
+          // entrar siguiente
+          next.style.opacity = "0";
+          next.style.transform = "translateY(10px)";
+          animate(next, { opacity: [0, 1], transform: ["translateY(10px)", "translateY(0)"] }, { duration: 0.24, easing: "ease-out" });
+        });
+    };
+
+    setInterval(() => {
+      const current = words[index];
+      index = (index + 1) % words.length;
+      const next = words[index];
+      showWord(current, next);
+    }, 2400);
+  });
+</script>
+
+<style>
+  .rotator-word { will-change: opacity, transform; }
+</style>
