@@ -1,25 +1,31 @@
 ---
-import Base from "../layouts/Base.astro";
-import Hero from "../components/Hero.astro";
+import Base from "../../layouts/Base.astro";
+import Hero from "../../components/Hero.astro";
 
 const page = {
-  title: "Tech Hilfe Pro – IT-Hilfe, die vorausdenkt",
-  desc: "Sichere, verständliche IT-Hilfe in Köln: proaktive Wartung, sichere Heimnetze, schnelle Hilfe remote & vor Ort."
+  title: "Pakete – Tech Hilfe Pro",
+  desc: "Einfache Pläne für Zuhause und kleine Unternehmen: Home & Familie, MSP-Lite, Digital-Concierge."
 };
 ---
 
-<Base { ...page }>
+<Base {...page}>
+  <!-- Hero opcional en subpágina (si no lo quieres aquí, bórralo) -->
   <Hero />
 
-  <!-- Placeholder secciones: en la siguiente pasada las pulimos con copy y JSON-LD -->
   <section id="leistungen" class="mx-auto max-w-6xl px-4 py-16">
     <h2 class="text-2xl sm:text-3xl font-bold tracking-tight">Was wir für dich lösen</h2>
-    <p class="mt-3 text-zinc-300 max-w-2xl">Proaktive Wartung, sichere Heimnetze, Backup & Wiederherstellung, Home-Office-Setup, Vor-Ort-Service in Köln.</p>
+    <p class="mt-3 text-zinc-300 max-w-2xl">
+      Proaktive Wartung, sichere Heimnetze, Backup & Wiederherstellung, Home-Office-Setup,
+      Vor-Ort-Service in Köln.
+    </p>
   </section>
 
   <section id="preise" class="mx-auto max-w-6xl px-4 py-16">
     <h2 class="text-2xl sm:text-3xl font-bold tracking-tight">Pläne</h2>
-    <p class="mt-3 text-zinc-300">Demnächst: Home & Familie · MSP-Lite (1–10 Nutzer) · Digital-Concierge</p>
+    <p class="mt-3 text-zinc-300">
+      Demnächst: Home & Familie · MSP-Lite (1–10 Nutzer) · Digital-Concierge
+    </p>
+    <!-- aquí irán las tarjetas de precios -->
   </section>
 
   <section id="faq" class="mx-auto max-w-6xl px-4 py-16">
@@ -34,7 +40,12 @@ const page = {
     <h2 class="text-2xl sm:text-3xl font-bold tracking-tight">Kontakt</h2>
     <div class="mt-4 flex flex-wrap gap-3">
       <a href="tel:+49221XXXXXXX" class="btn btn-ghost">Anrufen</a>
-      <a href="https://wa.me/4915565029989?text=Hallo!%20Ich%20brauche%20IT-Hilfe%20in%20K%C3%B6ln." class="btn btn-primary">WhatsApp öffnen</a>
+      <a
+        href="https://wa.me/4915565029989?text=Hallo!%20Ich%20brauche%20IT-Hilfe%20in%20K%C3%B6ln."
+        class="btn btn-primary"
+      >
+        WhatsApp öffnen
+      </a>
     </div>
   </section>
 </Base>
